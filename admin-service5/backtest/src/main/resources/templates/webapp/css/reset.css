@@ -1,0 +1,36 @@
+/* CSS Document */
+
+@charset "utf-8";
+/* reset */
+body{min-width:1200px; background:#f0f2f5;}
+.clearfix{display:inline-table;display:block;zoom:1}
+html,body,div,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,input,textarea{margin: 0; padding: 0;font-family:"微软雅黑";}
+h1,h2,h3,h4,h5,h6,em,h6,b,p{font-weight: normal; font-style: normal;}
+img{vertical-align:bottom; border:0 none;}
+select,input,textarea{border:none;}
+a{text-decoration: none;color:#666;font-family:"微软雅黑";font-size:16px;}
+a:hover{color:#df3b3b;}
+ul,ol{list-style: none;}
+.clear{ clear: both;}
+.clearFix { zoom:1; }
+.clearFix:after { content:'.'; display:block; height:0; clear:both; visibility:hidden;}
+::selection{background:#0080FF; color: white; /* Safari */}
+::-moz-selection{background:#0080FF; color: white; /* Firefox */ } /*鼠标滑过变色*/
+.none{display: none;}
+
+/*禁用表单input、select元素的默认外观*/
+input,select{
+/*-webkit-appearance:none;
+        appearance:none;*/
+}
+
+/*禁用 select 默认下拉箭头*/
+select::-ms-expand {
+	display: none;
+}
+
+/*禁用 radio 和 checkbox 默认样式*/
+input[type=radio]::-ms-check,
+input[type=checkbox]::-ms-check{
+	display: none;
+}

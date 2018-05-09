@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qfx.mapper.FactorsMapper">
+
+    <resultMap id="Factors" type="qfx.model.Factors">
+        <result column="id" property="id" />
+        <result column="enName" property="enName" />
+        <result column="typeId" property="typeId" />
+        <result column="cnName" property="cnName" />
+        <result column="preSet" property="preSet" />
+        <result column="parameters" property="parameters" />
+        <result column="indexEnable" property="indexEnable" />
+        <result column="description" property="description" />
+        <result column="loadEnable" property="loadEnable" />
+        <result column="filePath" property="filePath" />
+        <result column="isValid" property="isValid" />
+        <result column="defaultValue" property="defaultValue" />
+        <result column="auditState" property="auditState" />
+        <result column="operaNames" property="operaNames" />
+        <result column="suditPassState" property="suditPassState"/>
+        <result column="userCname" property="userCname"/>
+        <result column="isPassAudit" property="isPassAudit"/>
+        <result column="adminUser" property="adminUser"/>
+        <result column="isHot" property="isHot"/>
+        <result column="isHotName" property="isHotName"/>
+    </resultMap>
+
+    <insert  id="addFactors">
+        INSERT INTO managementV2.Factors(isValid,enName,typeId,cnName,preSet,parameters,indexEnable,description,loadEnable,filePath,defaultValue,auditState,operaNames,auditStaNaFalse,auditStaNaTrue,isPassAudit,adminUser,isHot,isHotName)VALUES
+        (#{isValid},#{enName},#{typeId},#{cnName},#{preSet},#{parameters},#{indexEnable},#{description},
+        #{loadEnable},#{filePath},#{defaultValue},#{auditState},#{operaNames},#{auditStaNaFalse},#{auditStaNaTrue},#{isPassAudit},#{adminUser},#{isHot},#{isHotName}
+        )
+        <selectKey  resultType="int"  keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+
+    <delete id="deleteFactors" parameterType="int">
+        delete from  managementV2.Factors where  id=#{id}
+    </delete>
+
+
+    <update id="updateFactors">
+        update managementV2.Factors set cnName=#{cnName},enName=#{enName}
+        ,preSet=#{preSet},parameters=#{parameters},description=#{description}
+        ,defaultValue=#{defaultValue},typeId=#{typeId},typeId=#{typeId},filePath=#{filePath},auditState=#{auditState},operaNames=#{operaNames},isHot=#{isHot},isHotName=#{isHotName} where  id=#{id}
+    </update>
+
+    <update id="updateState">
+        update  managementV2.Factors set auditState=#{auditState},isValid=#{isValid},auditStaNaTrue=#{auditStaNaTrue},auditStaNaFalse=#{auditStaNaFalse},suditPassState=#{suditPassState},userCname=#{userCname},isPassAudit=#{isPassAudit} where  id=#{id}
+    </update>
+
+    <select id="selectFactors"  resultMap="Factors" parameterType="hashMap">
+        select
+        id,`enName`,`typeId`,`cnName`,`preSet`,`parameters`,`isHotName`,`indexEnable`,`description`,`loadEnable`,`filePath`,`isValid`,`defaultValue`,`isHot`,`auditState`,`operaNames`
+        ,CASE WHEN `auditStaNaTrue`= 1 THEN TRUE ELSE FALSE END AS  auditStaNaTrue
+        ,CASE WHEN `auditStaNaFalse` = 1 THEN TRUE ELSE FALSE END AS auditStaNaFalse
+        from managementV2.Factors
+        <where>  1=1
+            <if test="indexEnable!=null and indexEnable!=''">
+                AND indexEnable=#{indexEnable}
+            </if>
+            <if test="loadEnable!=null and loadEnable!=''">
+                AND   loadEnable=#{loadEnable}
+            </if>
+            <if test="isValid!=null and isValid!=''">
+                AND   isValid=#{isValid}
+            </if>
+            <if test="typeId!=null and typeId!=0">
+                AND   typeId=#{typeId}
+            </if>
+            <if test="cnName!=null and cnName!=''">
+                AND   cnName like '%${cnName}%'
+            </if>
+            <if test="description!=null and description!=''">
+                AND   description like '%${description}%'
+            </if>
+            <if test="enName!=null and enName!=''">
+                AND    enName like  '%${enName}%'
+            </if>
+        </where>
+    </select>
+
+    <select id="selectId"  parameterType="String" resultType="Integer">
+        select id  from  managementV2.Factors where  cnName=#{cnName}
+    </select>
+
+    <select id="selectCname" resultMap="Factors">
+        select enName from  managementV2.Factors
+    </select>
+
+    <select  id="selectAudit" resultMap="Factors">
+        select  *  from  managementV2.Factors  where   auditState=#{auditState} and userCname=#{userCname}
+    </select>
+
+    <select id="showDetail" resultMap="Factors">
+        select * from  managementV2.Factors  where id=#{id}
+    </select>
+
+    <select id="selectType" resultMap="Factors">
+        select * from  managementV2.Factors  where typeId=#{typeId}
+    </select>
+
+    <!--alphaH库uprecord表name字段-->
+    <delete  id="deleteAlname" parameterType="String">
+        delete from  alphaH.uprecord  where  name=#{enName}
+    </delete>
+
+
+
+</mapper>

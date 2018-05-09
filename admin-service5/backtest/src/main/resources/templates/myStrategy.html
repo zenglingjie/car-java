@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>量化平台-我的策略</title>
+
+<!--量化平台-css样式表-->
+<link rel="stylesheet" href="/webapp/css/reset.css">
+<link rel="stylesheet" href="/webapp/css/style.css">
+
+<!--量化平台-js引用表-->
+<script type="text/javascript" src='/webapp/js/vue.min.js'></script>
+<script type="text/javascript" src="/webapp/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="/webapp/js/js.js"></script>
+<script type="text/javascript" src="/webapp/js/lab/ajaxHelper.js"></script>
+
+</head>
+
+<body>
+
+<!--====================量化平台-header====================-->
+<header>
+	<div class="main">
+    	<div class="logo"><a href="index.html"><img src="/webapp/images/logo.png" alt="量化平台" width="120" height="50"/></a></div>
+        <div class="menu">
+            <nav>
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="#">创建策略</a>
+                    	<div class="downMenu">
+                        	<div class="downMenu_box">                            
+                                <a href="createStrategy.html">策略生成器</a> 
+                                <a href="editStrategy.html">python策略</a> 
+                                <div class="triangle_border tb_background"></div> 
+                                <div class="triangle_border tb_border"></div> 
+                            </div>
+                        </div>
+                    </li>
+                    <li class="hover"><a href="myStrategy.html">我的策略</a></li>
+                    <li><a href="document.html">文档</a></li>
+                </ul>
+            </nav>
+            <div class="header_right">
+                <ul>
+                    <li th:unless="${session._http_login_pin_ != null}"><a id = "loginurl" href="/webapp/login" >登录</a></li>
+                    <li th:if="${session._http_login_pin_}"><a id = "logouturl" class="r" href="/webapp/logout.html">退出</a></li>
+                </ul>
+                <!--<a href="register.html" class="r">免注册，快速登录</a>-->
+            </div>
+        </div>
+    </div>
+</header>
+
+<!--====================量化平台-myStrategy_content内容样式====================-->
+<div class="main">
+    <div class="myStrategy_content">
+    	<div class="myStrategy_top">
+        	<div class="myStrategy_left">
+            	<a href="javascript:void(0);" class="focus">策略生成器</a>
+                <a href="javascript:void(0);">python策略</a>
+           </div>            
+        </div>
+    	<div class="myStrategy_con" id="ind_genresult">
+            <div class="ind_wrap" style="display:block;" >
+            	<div class="myStrategy_right">
+	            	<a href="createStrategy.html">新建</a>
+	            </div>
+                <ul class="ind_list" v-for="result in resultJson">
+                    <li class="clearfix">
+                        <div class="ind_left" >
+                            <p class="shipan">
+                                <a class="a_name" v-bind:href="result.href">{{result.name}}</a>
+                            </p>
+                            <table class="ind_tab">
+                                <colgroup>
+                                    <col width="100">
+                                    <col width="100">
+                                    <col width="110">
+                                    <col width="106">
+                                    <col width="144">
+                                    <col width="140">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th align="left">收益</th>
+                                        <th align="left">最大回撤 </th>
+                                        <th align="left">beta</th>
+                                        <th align="left">alpha</th>
+                                        <th align="left">年化波动率</th>
+                                        <th align="left">sharp值</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr >
+                                        <td align="left">{{result.totoalReturns}}</td>
+                                        <td align="left">{{result.max_drawdown}}</td>
+                                        <td align="left">{{result.beta}}</td>
+                                        <td align="left">{{result.alpha}}</td>
+                                        <td align="left">{{result.annualized_returns}}</td>
+                                        <td align="left">{{result.sharpe}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="ind_right" id="right_result">
+                            <div class="in_time clearfix">
+                                <div class="in_text" >
+                                    <p class="tm"><span class="opcity">创建时间：{{result.created}}</span></p>
+                                    <p class="tm"><span class="opcity">修改时间：{{result.updatetime}}</span></p>
+                                    <p class="tm">
+                                        <span class="opcity">回测历史：</span>
+                                        <a class="col_hover_blue" href="javascript:void(0);" v-bind:href="result.historyhref">
+                                            <span>{{result.historycount}}</span>
+                                        </a>
+                                    </p>
+                                </div>
+                                   <!-- <a  href="javascript:history();" class="r hover">回测历史</a>-->
+                                <div class="delete">
+                                <div class="del clearfix">
+                                    <div class="de_icon" v-on:click="deletes(result)"></div>
+                                </div>
+                            </div>
+                           </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="ind_wrap" >
+            	<div class="myStrategy_right">
+	            	<a href="editStrategy.html">新建</a>
+	            </div>
+                <ul class="ind_list" v-for="result in resultPython">
+                    <li class="clearfix">
+                        <div class="ind_left">
+                            <p class="shipan">
+                                <a class="a_name" v-bind:href="result.href">{{result.name}}</a>
+                            </p>
+                            <table class="ind_tab">
+                                <colgroup>
+                                    <col width="100">
+                                    <col width="100">
+                                    <col width="110">
+                                    <col width="106">
+                                    <col width="144">
+                                    <col width="140">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th align="left">收益</th>
+                                        <th align="left">最大回撤 </th>
+                                        <th align="left">beta</th>
+                                        <th align="left">alpha</th>
+                                        <th align="left">年化波动率</th>
+                                        <th align="left">sharp值</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td align="left">{{result.totoalReturns}}</td>
+                                        <td align="left">{{result.max_drawdown}}</td>
+                                        <td align="left">{{result.beta}}</td>
+                                        <td align="left">{{result.alpha}}</td>
+                                        <td align="left">{{result.annualized_returns}}</td>
+                                        <td align="left">{{result.sharpe}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="ind_right">
+                            <div class="in_time clearfix">
+                                <div class="in_text">
+                                    <p class="tm"><span class="opcity">创建时间：{{result.created}}</span></p>
+                                    <p class="tm"><span class="opcity">修改时间：{{result.updatetime}}</span></p>
+                                    <p class="tm">
+                                        <span class="opcity">回测历史：</span>
+                                        <a href="javascript:void(0);" v-bind:href="result.historyhref">
+                                            <span>{{result.historycount}}</span>
+                                        </a>
+                                    </p>
+                                </div>
+                                <div class="delete">
+                                    <div class="del clearfix">
+                                        <div class="de_icon" v-on:click="deletes(result)"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/webapp/js/js.js"></script>
+<script type="text/javascript" src="/webapp/js/lab/createStrategy.js"></script>
+<script type="text/javascript" src="/webapp/js/lab/myStrategy.js"></script>
+<!--====================量化平台-footer====================-->
+<footer>
+	<div class="main">
+        <div class="foot_left">
+            <ul>
+                <li>
+                    <h2>关于</h2>
+                    <p><a href="">关于我们</a></p>
+                    <p><a href="">加入我们</a></p>
+                    <p><a href="">联系我们</a></p>
+                </li>
+                <li>
+                    <h2>API文档</h2>
+                    <p><a href="">策略研究文档</a></p>
+                    <p><a href="">Python</a></p>
+                    <p><a href="">API文档</a></p>
+                </li>
+                <li class="r">
+                    <h2>帮助</h2>
+                    <p><a href="">常见问题</a></p>
+                    <p><a href="">Python教程</a></p>
+                    <p><a href="">产品更新日志</a></p>
+                    <p><a href="">新手指南</a></p>
+                </li>
+            </ul>
+        </div>
+        <div class="foot_right">
+        	<div class="ewm">
+            	<img src="/webapp/images/ewm.jpg" alt="二维码" width="94" height="94" />
+                <p>微信公众号</p>
+            </div>
+            <div class="ewm r">
+            	<img src="/webapp/images/ewm.jpg" alt="二维码" width="94" height="94" />
+                <p>淘股王APP</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="beian">@2016@淘股王版权所有 | 投资有风险，购买需谨慎</div>
+</body>
+</html>

@@ -1,0 +1,735 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>量化平台-创建策略</title>
+
+<!--量化平台-css样式表-->
+<link rel="stylesheet" type="text/css" href="css/reset.css">
+<link rel="stylesheet" type="text/css" href="css/laydate.css"/>
+<link rel="stylesheet" type="text/css" href="css/stock.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css">
+
+<!--量化平台-js引用表-->
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/js.js"></script>
+<script type="text/javascript" src="js/laydate.js"></script>
+</head>
+
+<body style="overflow: hidden;">
+
+<!--====================量化平台-header====================-->
+<header>
+	<div class="main">
+    	<div class="logo"><a href="index.html"><img src="images/logo.png" alt="量化平台" width="120" height="50"/></a></div>
+        <div class="menu">
+            <nav>
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li class="hover"><a href="#">创建策略</a>
+                    	<div class="downMenu">
+                        	<div class="downMenu_box">                            
+                                <a href="createStrategy.html">策略生成器</a> 
+                                <a href="editStrategy.html">python策略</a> 
+                                <div class="triangle_border tb_background"></div> 
+                                <div class="triangle_border tb_border"></div> 
+                            </div>
+                        </div>
+                    </li>
+                    <li><a href="myStrategy.html">我的策略</a></li>
+                    <li><a href="document.html">文档</a></li>
+                </ul>
+            </nav>
+            <div class="header_right">
+                <a href="login.html">登录</a>
+                <a href="register.html" class="r">免注册，快速登录</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!--====================量化平台-myStrategy_content内容样式====================-->
+<div class="createStrategy_content">
+    <div class="createStrategy_top">
+		<a href="createStrategy.html" class="hover">编辑策略</a>
+        <a href="history.html" class="r">回测历史</a>
+        <div class="return">
+        	<p>新建策略2017-06-09 11:19:40</p>
+        </div>
+    </div>    
+   
+    <div class="editStrategy">
+    	<div class="editStrategy_left">
+        	<div class="creatStrategy">
+                <div class="creatStrategy_cont">
+                    <h2><span>交易设置</span></h2>
+                    <div class="creat_select">
+                        <ul>
+                            <li class="creat_select_li">
+                                <p>持仓数量</p>
+                                <div class="nice_select selects" name="nice_select">                    
+                                    <input type="text" value="10">                          
+                                </div>
+                            </li>
+                            <li class="creat_select_li">
+                                <p>加权方式</p>
+                                <div class="nice_select" name="nice_select"  onclick="getlist1(1)">                    
+                                    <input type="text" value="==请选择==" readonly>                    
+                                    <ul id="ul1"></ul>  
+                                    
+                                </div>
+                            </li>
+                            <li class="creat_select_li">
+                                <p>交易价格</p>
+                                <div class="nice_select" name="nice_select" onclick="getlist1(2)">                    
+                                    <input type="text" value="==请选择==" readonly>                    
+                                    <ul id="ul2"></ul>                    
+                                </div>
+                            </li>
+                            <li class="creat_select_li">
+                                <p>调仓周期</p>
+                                <div class="nice_select" name="nice_select"  onclick="getlist1(3)">                    
+                                    <input type="text" value="==请选择==" readonly>                    
+                                    <ul id="ul3"></ul>                    
+                                </div>
+                            </li>
+                            <li class="creat_select_li">
+                                <p>调仓跨度</p>                        	
+                                <div class="nice_select selects" name="nice_select">                    
+                                    <input type="text" value="6">                          
+                                </div>
+                            </li>
+                            <li class="creat_select_li">
+                                <p>调仓日序号</p>
+                                <div class="nice_select" name="nice_select" onclick="getlist1(9)">                    
+                                    <input type="text" value="==请选择==" readonly>                    
+                                    <ul id="ul9"></ul>                    
+                                </div>
+                            </li>                        
+                        </ul>
+                    </div>
+                </div>
+                <div class="creatStrategy_cont">
+                    <h2><span>股票池</span></h2>
+                    <div class="creat_select">
+                        <ul>
+                            <li class="creat_select_li">
+                                <p>指数成分</p>
+                                <div class="nice_select" name="nice_select" onclick="getlist1(4)">                    
+                                    <input type="text" value="==请选择==" readonly>                    
+                                    <ul id="ul4"></ul>                    
+                                </div>
+                            </li>
+                            <li class="creat_select_li">
+                                <p>板块</p>
+                                <div class="nice_select" name="nice_select"  onclick="getlist1(5)">                    
+                                    <input type="text" value="==请选择==" readonly>                    
+                                    <ul id="ul5"></ul>                    
+                                </div>
+                            </li>
+                            <li class="creat_select_li">
+                                <p>行业</p>
+                                <div class="nice_select" name="nice_select"  onclick="getlist1(6)">                    
+                                    <input type="text" value="==请选择==" readonly>                    
+                                    <ul id="ul6"></ul>                    
+                                </div>
+                            </li>
+                            <li class="creat_select_li">
+                                <p>交易所</p>
+                                <div class="nice_select" name="nice_select"  onclick="getlist1(7)">                    
+                                    <input type="text" value="==请选择==" readonly>                    
+                                    <ul id="ul7"></ul>                    
+                                </div>
+                            </li>
+                            <li class="creat_select_li">
+                                <p>融资融券</p>                        	
+                                <div class="nice_select" name="nice_select"  onclick="getlist1(8)">                    
+                                    <input type="text" value="==请选择==" readonly>                    
+                                    <ul id="ul8"></ul>                    
+                                </div>
+                            </li>
+                            <li class="creat_select_li">
+                                <p style="margin-left:47px;">剔除ST、*ST</p>                 
+                                <span><input type="radio"></span>
+                            </li>                        
+                        </ul>
+                    </div>
+                </div>
+                <div class="creatStrategy_cont">
+                    <h2><span>选股条件</span><span class="r"><a href="javascript:void(0);" onclick="getlist2(1)" class="pop">+&nbsp;添加</a></span></h2>
+                    <div class="creat_biaoge">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th width="200">指标</th>
+                                    <th width="200">运算符</th>
+                                    <th width="200">范围</th>
+                                    <th width="90">值</th>
+                                    <th width="80">编辑</th>
+                                    <th width="80">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>净利润增速</td>
+                                    <td>                            
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul10"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul11">/ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select selects" name="nice_select">                    
+                                            <input type="text" value="10">                         
+                                        </div>
+                                    </td>
+                                    <td><a href="javascript:void(0);" id="pop1" class="binaji"></a></td>
+                                    <td><a href="javascript:void(0);" class="shanchu"></a></td>
+                                </tr>
+                                <tr>
+                                    <td>市值</td>
+                                    <td>                            
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul12"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul13"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select selects" name="nice_select">                    
+                                            <input type="text" value="10">                         
+                                        </div>
+                                    </td>
+                                    <td><a href="" class="binaji"></a></td>
+                                    <td><a href="" class="shanchu"></a></td>
+                                </tr>
+                                <tr>
+                                    <td>净利润增速</td>
+                                    <td>                            
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul14"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul15"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select selects" name="nice_select">                    
+                                            <input type="text" value="10">                         
+                                        </div>
+                                    </td>
+                                    <td><a href="" class="binaji"></a></td>
+                                    <td><a href="" class="shanchu"></a></td>
+                                </tr>
+                                <tr>
+                                    <td>市值</td>
+                                    <td>                            
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul16"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul17"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select selects" name="nice_select">                    
+                                            <input type="text" value="10">                         
+                                        </div>
+                                    </td>
+                                    <td><a href="" class="binaji"></a></td>
+                                    <td><a href="" class="shanchu"></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="creatStrategy_cont">
+                    <h2><span>排序方式</span><span class="r"><a href="">+&nbsp;添加</a></span></h2>
+                    <div class="creat_biaoge">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th width="200">指标</th>
+                                    <th width="200">顺序</th>
+                                    <th width="200">范围</th>
+                                    <th width="90">值</th>
+                                    <th width="80">编辑</th>
+                                    <th width="80">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>净利润增速</td>
+                                    <td>                            
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul18"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul19"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select selects" name="nice_select">                    
+                                            <input type="text" value="10">                         
+                                        </div>
+                                    </td>
+                                    <td><a href="" class="binaji"></a></td>
+                                    <td><a href="" class="shanchu"></a></td>
+                                </tr>
+                                <tr>
+                                    <td>市值</td>
+                                    <td>                            
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul20"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul21"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select selects" name="nice_select">                    
+                                            <input type="text" value="10">                         
+                                        </div>
+                                    </td>
+                                    <td><a href="" class="binaji"></a></td>
+                                    <td><a href="" class="shanchu"></a></td>
+                                </tr>
+                                <tr>
+                                    <td>净利润增速</td>
+                                    <td>                            
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul22"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul23"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select selects" name="nice_select">                    
+                                            <input type="text" value="10">                         
+                                        </div>
+                                    </td>
+                                    <td><a href="" class="binaji"></a></td>
+                                    <td><a href="" class="shanchu"></a></td>
+                                </tr>
+                                <tr>
+                                    <td>市值</td>
+                                    <td>                            
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul24"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul25">/ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select selects" name="nice_select">                    
+                                            <input type="text" value="10">                         
+                                        </div>
+                                    </td>
+                                    <td><a href="" class="binaji"></a></td>
+                                    <td><a href="" class="shanchu"></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="creatStrategy_cont">
+                    <h2><span>个股止损</span><span class="r"><a href="">+&nbsp;添加</a></span></h2>
+                    <div class="creat_biaoge">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th width="200">指标</th>
+                                    <th width="200">运算符</th>
+                                    <th width="200">范围</th>
+                                    <th width="90">值</th>
+                                    <th width="80">编辑</th>
+                                    <th width="80">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>净利润增速</td>
+                                    <td>                            
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul26"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul27"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select selects" name="nice_select">                    
+                                            <input type="text" value="10">                         
+                                        </div>
+                                    </td>
+                                    <td><a href="" class="binaji"></a></td>
+                                    <td><a href="" class="shanchu"></a></td>
+                                </tr>
+                                <tr>
+                                    <td>市值</td>
+                                    <td>                            
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul28"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul29"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select selects" name="nice_select">                    
+                                            <input type="text" value="10">                         
+                                        </div>
+                                    </td>
+                                    <td><a href="" class="binaji"></a></td>
+                                    <td><a href="" class="shanchu"></a></td>
+                                </tr>
+                                <tr>
+                                    <td>净利润增速</td>
+                                    <td>                            
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul30"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul31"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select selects" name="nice_select">                    
+                                            <input type="text" value="10">                         
+                                        </div>
+                                    </td>
+                                    <td><a href="" class="binaji"></a></td>
+                                    <td><a href="" class="shanchu"></a></td>
+                                </tr>
+                                <tr>
+                                    <td>市值</td>
+                                    <td>                            
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul31"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul32"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select selects" name="nice_select">                    
+                                            <input type="text" value="10">                         
+                                        </div>
+                                    </td>
+                                    <td><a href="" class="binaji"></a></td>
+                                    <td><a href="" class="shanchu"></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="creatStrategy_cont">
+                    <h2><span>大盘止损</span><span class="r"><a href="">+&nbsp;添加</a></span></h2>
+                    <div class="creat_biaoge">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th width="150">指标</th>
+                                    <th width="250">指数</th>
+                                    <th width="200">运算符</th>
+                                    <th width="150">范围</th>
+                                    <th width="90">值</th>
+                                    <th width="100">编辑</th>
+                                    <th width="100">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>净利润增速</td>
+                                    <td>                            
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul33"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>                            
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul34"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select" name="nice_select">                    
+                                            <input type="text" value="==请选择==" readonly>                    
+                                            <ul id="ul35"></ul>                    
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="nice_select selects" name="nice_select">                    
+                                            <input type="text" value="10">                         
+                                        </div>
+                                    </td>
+                                    <td><a href="" class="binaji"></a></td>
+                                    <td><a href="" class="shanchu"></a></td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="editStrategy_right">  
+            <div class="editStrategy_right_top">
+            	<span>
+                	<input id="test1" class="inline laydate-icon" style="width:110px;"> 
+                    至     
+                    <input id="test2" class="inline laydate-icon" style="width:110px;"> 
+                </span>
+                <span class="r">
+                    <a href="testResults.html">详细结果</a>
+                	<a href="">运行回测</a>
+                </span>
+            </div>
+            <div class="editStrategy_right_middle">
+            	<table>
+                	<thead>
+                    	<tr>
+                        	<th>收益</th>
+                        	<th>基准收益</th>
+                        	<th>最大撤回</th>
+                        	<th>beta</th>
+                        	<th>alpha</th>
+                        	<th>sharp值</th>
+                        </tr>
+                    </thead>               
+                	<tbody>
+                    	<tr>
+                        	<td>5.05%</td>
+                            <td>5.23%</td>
+                            <td>45.56%</td>
+                            <td>0.58</td>
+                            <td>-0.22</td>
+                            <td>0.98</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!--图表展示-->
+                <div id="data-k" class="data-k"></div>
+                
+            </div> 
+            <div class="editStrategy_right_bottom">
+            	<div class="rizhi">
+                	<a href="javascript:void(0);" class="focus">日志</a>
+                    <a href="javascript:void(0);">错误</a>
+                </div>
+                <div class="rizhi_cont" style="display:block;">
+                	<p>2016-06-01 08:00:00 - WARNING - 没有handle_data函数, 不执行handle_data</p>
+                	<p>2016-06-01 08:00:00 - WARNING - 没有handle_data函数, 不执行handle_data</p>                    
+                	<p>2016-06-01 08:00:00 - WARNING - 没有handle_data函数, 不执行handle_data</p>
+                	<div class="triangle_border tb_background"></div> 
+					<div class="triangle_border tb_border"></div> 
+                </div>
+                <div class="rizhi_cont rizhi_cont1">
+                	<p>2016-06-01 08:00:00 - WARNING - 没有handle_data函数, 不执行handle_data</p>
+                	<p>2016-06-01 08:00:00 - WARNING - 没有handle_data函数, 不执行handle_data</p>                    
+                	<p>2016-06-01 08:00:00 - WARNING - 没有handle_data函数, 不执行handle_data</p>                 
+                	<p>2016-06-01 08:00:00 - WARNING - 没有handle_data函数, 不执行handle_data</p>
+                	<div class="triangle_border tb_background"></div> 
+					<div class="triangle_border tb_border"></div> 
+                </div>
+            </div>            
+        </div>
+    </div>
+    
+</div>
+
+<div id="pop_index" class="append">
+    <div class="pop_top">
+    	<h2>指标选择</h2>
+    	<a href="javascript:void(0)" title="" class="close_btn" id="closeBtn"></a>
+    </div>
+    <div class="append_cont">
+		<div class="append_left">
+			<ul id="pop_1">
+				<!--<li class="hover"><a href="javascript:void(0)">估值</a></li>
+				<li><a href="javascript:void(0)">盈利</a></li>
+				<li><a href="javascript:void(0)">成长</a></li>
+				<li><a href="javascript:void(0)">技术</a></li>-->
+			</ul>
+		</div>
+		<div class="append_right">
+			<div class="app_tab">
+				<div class="append_rcont">				
+					<input id="ck1" type="checkbox" /> 
+					<label for="ck1">市盈率TTM</label> 
+					<i>
+					<div class="app_pop"><p>每股股价为每股收益的倍数</p>
+						<em></em>
+					</div>
+					</i>
+				</div>
+				<div class="append_rcont">				
+					<input id="ck2" type="checkbox" /> 
+					<label for="ck2">动态市盈率</label> 
+					<i>
+					<div class="app_pop"><p>每股股价为每股收益的倍数</p>
+						<em></em>
+					</div>
+					</i>
+				</div>
+				<div class="append_rcont">				
+					<input id="ck3" type="checkbox" /> 
+					<label for="ck3">静态市盈率</label> 
+					<i>
+					<div class="app_pop"><p>每股股价为每股收益的倍数</p>
+						<em></em>
+					</div>
+					</i>
+				</div>
+				<div class="append_rcont">				
+					<input id="ck4" type="checkbox" /> 
+					<label for="ck4">市净率</label> 
+					<i>
+					<div class="app_pop"><p>每股股价为每股收益的倍数</p>
+						<em></em>
+					</div>
+					</i>
+				</div>
+				<div class="append_rcont">				
+					<input id="ck5" type="checkbox" /> 
+					<label for="ck5">总市值</label> 
+					<i>
+					<div class="app_pop"><p>每股股价为每股收益的倍数</p>
+						<em></em>
+					</div>
+					</i>
+				</div>
+				<div class="append_rcont">				
+					<input id="ck6" type="checkbox" /> 
+					<label for="ck6">市销率</label> 
+					<i>
+					<div class="app_pop"><p>每股股价为每股收益的倍数</p>
+						<em></em>
+					</div>
+					</i>
+				</div>
+				<div class="append_rcont">				
+					<input id="ck7" type="checkbox" /> 
+					<label for="ck7">总息率</label> 
+					<i>
+					<div class="app_pop"><p>每股股价为每股收益的倍数</p>
+						<em></em>
+					</div>
+					</i>
+				</div>
+				<div class="append_rcont">				
+					<input id="ck8" type="checkbox" /> 
+					<label for="ck8">市现率（经营现金流TTM）</label> 
+					<i>
+					<div class="app_pop"><p>每股股价为每股收益的倍数</p>
+						<em></em>
+					</div>
+					</i>
+				</div>
+				<div class="append_rcont">				
+					<input id="ck9" type="checkbox" /> 
+					<label for="ck9">市现率（现金净流量TTM）</label> 
+					<i>
+					<div class="app_pop"><p>每股股价为每股收益的倍数</p>
+						<em></em>
+					</div>
+					</i>
+				</div>
+				<div class="append_rcont">				
+					<input id="ck10" type="checkbox" /> 
+					<label for="ck10">市现率（经营现金流TTM）</label> 
+					<i>
+					<div class="app_pop"><p>每股股价为每股收益的倍数</p>
+						<em></em>
+					</div>
+					</i>
+				</div>
+			</div>
+		</div>
+		<button type="submit">确定</button>
+    </div>
+</div>
+
+<div id="pop_bianji">
+	<div class="pop_top" style="margin-bottom: 15px;">
+    	<h2>指标编辑-MACD</h2>
+    	<a href="javascript:void(0)" title="" class="close_btn" id="closeBtn"></a>
+    </div>
+    <div class="bianji">
+    	<p>DIF短线</p>
+    	<input type="text" />
+    </div>
+    <div class="bianji">
+    	<p>DIF长线</p>
+    	<input type="text" />
+    </div>
+    <div class="bianji">
+    	<p>DEA</p>
+    	<input type="text" />
+    </div>
+    <button type="submit">确定</button>
+</div>
+
+<script type="text/javascript" src="js/stock/echarts.min.js"></script>
+<script type="text/javascript" src="js/stock/stock.js"></script>
+<script type="text/javascript" src="js/lab/createStrategy.js"></script>
+
+<script type="text/javascript" src="js/pop/pop-up.js"></script>
+
+</body>
+</html>

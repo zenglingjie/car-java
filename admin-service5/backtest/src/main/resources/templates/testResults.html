@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>量化平台-创建策略-回测历史</title>
+
+<!--量化平台-css样式表-->
+<link rel="stylesheet" href="/webapp/css/reset.css">
+<link rel="stylesheet" href="/webapp/css/style.css">
+
+<!--量化平台-js引用表-->
+<script type="text/javascript" src='/webapp/js/vue.min.js'></script>
+<script type="text/javascript" src="/webapp/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="/webapp/js/stock/echarts.min.js"></script>
+<script type="text/javascript" src="/webapp/js/js.js"></script>
+<script type="text/javascript" src="/webapp/js/lab/ajaxHelper.js"></script>
+</head>
+
+<body>
+
+<!--====================量化平台-header====================-->
+<header>
+	<div class="main">
+    	<div class="logo"><a href="index.html"><img src="/webapp/images/logo.png" alt="量化平台" width="120" height="50"/></a></div>
+        <div class="menu">
+            <nav>
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li class="hover"><a href="#">创建策略</a>
+                    	<div class="downMenu">
+                        	<div class="downMenu_box">                            
+                                <a href="createStrategy.html">策略生成器</a> 
+                                <a href="editStrategy.html">python策略</a> 
+                                <div class="triangle_border tb_background"></div> 
+                                <div class="triangle_border tb_border"></div> 
+                            </div>
+                        </div>
+                    </li>
+                    <li><a href="myStrategy.html">我的策略</a></li>
+                    <li><a href="document.html">文档</a></li>
+                </ul>
+            </nav>
+            <div class="header_right">
+                <ul>
+                    <li th:unless="${session._http_login_pin_ != null}"><a id = "loginurl" href="/webapp/login" >登录</a></li>
+                    <li th:if="${session._http_login_pin_}"><a id = "logouturl" class="r" href="/webapp/logout.html">退出</a></li>
+                </ul>
+                <!--<a href="register.html" class="r">免注册，快速登录</a>-->
+            </div>
+        </div>
+    </div>
+</header>
+
+<!--====================量化平台-myStrategy_content内容样式====================-->
+<div class="createStrategy_content" id="testResults" style="margin-bottom: 100px">
+    <div class="createStrategy_top">
+        <div class="return">
+            <p>
+                <a href="javascript:void(0);" v-bind:href="href">{{strategyName}}</a>
+                <!--<a id="" href="/webapp/logout.html">{{strategyName}}</a>-->
+                <input type="hidden" id="sid"  th:value="${userStrategy.id}" value="-1"/>
+            </p>
+        </div>
+
+    </div>
+    <div class="testResults_left">
+        <ul class="test_list">
+            <li class="add_li"><span class="sy_tu">收益概况</span></li>
+            <li><span class="sy_tu1">交易详情</span></li>
+            <li><span class="sy_tu2">每日持仓&收益 </span></li>
+            <li><span class="sy_tu3">日志</span></li>
+            <li><span class="test_li">策略收益</span></li>
+            <li><span class="test_li">基准收益</span></li>
+            <li><span class="test_li">alpha</span></li>
+            <li><span class="test_li">beta</span></li>
+            <li><span class="test_li">sharpe</span></li>
+            <li><span class="test_li">sortino</span></li>
+            <li><span class="test_li">IR</span></li>
+            <li><span class="test_li">volatility</span></li>
+            <li><span class="test_li">最大回撤</span></li>
+        </ul>
+    </div>
+
+    <div class="testResults_right" style="display: block">
+        <div class="test_top">
+            <div class="test_top_left">
+                <span>回测区间：{{resultSum.start_date}}至{{resultSum.end_date}}</span>
+                <span class="span">|</span>
+                <span>用时: {{resultSum.consume}}秒</span>
+                <span class="span">|</span>
+                <span>状态: {{status}}</span>
+            </div>
+            <div class="test_top_right"><a href="">导出结果</a></div>
+        </div>
+        <div class="testResults_right_cont">
+            <div class="testResults_right_cont_top">
+                <table>
+                    <tr>
+                        <td>收益</td>
+                        <td>基准收益</td>
+                        <td>年化收益</td>
+                        <td>基准年化收益</td>
+                        <td>最大回撤</td>
+                        <td>beta</td>
+                        <td>alpha</td>
+                        <td>sharp</td>
+                        <td>sortino</td>
+                        <td>IR</td>
+                        <td>volatility</td>
+                    </tr>
+                    <tr class="r">
+                        <td>{{Number(resultSum.total_returns * 100).toFixed(2)}}%</td>
+                        <td>{{Number(resultSum.benchmark_total_returns * 100).toFixed(2)}}%</td>
+                        <td>{{Number(resultSum.annualized_returns * 100).toFixed(2)}}%</td>
+                        <td>{{Number(resultSum.benchmark_annualized_returns * 100).toFixed(2)}}%</td>
+                        <td>{{Number(resultSum.max_drawdown * 100).toFixed(2)}}%</td>
+                        <td>{{resultSum.beta}}</td>
+                        <td>{{resultSum.alpha}}</td>
+                        <td>{{resultSum.sharpe}}</td>
+                        <td>{{resultSum.sortino}}</td>
+                        <td>{{resultSum.information_ratio}}</td>
+                        <td>{{Number(resultSum.volatility * 100).toFixed(2)}}%</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!--图表展示-->
+            <div>
+                <input type="radio" name="colors" id="accumulative_returns" checked="checked" onclick="testSelect.loadChartData()"><label for="accumulative_returns">累计收益</label>
+                <input type="radio" name="colors" id="log_rerurns" onclick="testSelect.loadChartData()"><label for="log_rerurns">对数收益</label>
+                <input type="checkbox" name="colors" id="relative_returns"onclick="testSelect.loadChartData()"><label for="relative_returns">相对收益</label>
+            </div>
+            <div id="data-chart" class="testResults_data-chart"></div>
+            <div id="daily-rio-chart" class="testResults_data-chart"></div>
+            <div id="volume-chart" class="testResults_data-chart"></div>
+
+        </div>
+    </div>
+    <div class="testResults_right">
+        <div class="jyxq">
+            <div class="jyxq_top">
+                <span>回测区间：{{resultSum.start_date}}至{{resultSum.end_date}}</span>
+                <span class="span">|</span>
+                <span>用时: {{resultSum.consume}}秒</span>
+                <span class="span">|</span>
+                <span>状态: {{status}}</span>
+            </div>
+
+            <div class="jyxq_cont"  >
+
+
+
+                <div v-for="dayTrade in dayTrades">
+                    <div class="jyxq_cont_table1">
+                        <table>
+                            <colgroup>
+                                <col width="120">
+                                <col width="120">
+                                <col width="200">
+                                <col width="100">
+                                <col width="150">
+                                <col width="150">
+                                <col width="200">
+                                <col width="120">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>日期</th>
+                                <th>时间</th>
+                                <th>股票代码</th>
+                                <th>买/卖</th>
+                                <th>数量(股)</th>
+                                <th>成交价格(元)</th>
+                                <th>成交金额(元,含佣金)</th>
+                                <th>佣金(元）</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="jyxq_cont_top">
+                        <span>交易笔数:{{dayTrade.count}}</span>
+                        <span>买进：<i>¥{{dayTrade.total_buy}}</i></span>
+                        <span>卖出：<em>¥{{dayTrade.total_sell}}</em></span>
+                    </div>
+
+
+                    <div class="jyxq_cont_table2">
+                        <table >
+                            <colgroup>
+                                <col width="120">
+                                <col width="1040">
+                                <!-- <col width="120">
+                                 <col width="200">
+                                 <col width="100">
+                                 <col width="150">
+                                 <col width="150">
+                                 <col width="200">
+                                 <col width="120">-->
+                            </colgroup>
+                            <!--  <tbody>
+                                <tr v-for="trade in dayTrade.list">
+                                    <td>{{dayTrade.date}}</td>
+                                    <td>{{trade.time}}</td>
+                                    <td>{{trade.code}}({{trade.abbr}})</td>
+                                    <td>{{trade.side}}</td>
+                                    <td>{{trade.volumn}}</td>
+                                    <td>¥{{trade.price}}</td>
+                                    <td>¥{{Number(trade.amount).toFixed(2)}}</td>
+                                    <td>¥{{Number(trade.commision).toFixed(2)}}</td>
+                                </tr>
+                              </tbody>-->
+                            <tbody >
+                            <tr>
+                                <td>{{dayTrade.date}}</td>
+                                <td>
+                                    <table >
+                                        <colgroup>
+                                            <col width="120">
+                                            <col width="200">
+                                            <col width="100">
+                                            <col width="120">
+                                            <col width="100">
+                                            <col width="200">
+                                            <col width="200">
+                                        </colgroup>
+                                        <tbody>
+                                        <tr v-for="trade in dayTrade.list">
+                                            <td>{{trade.time}}</td>
+                                            <td>{{trade.code}}({{trade.abbr}})</td>
+                                            <td>{{trade.side}}</td>
+                                            <td>{{trade.volumn}}</td>
+                                            <td>¥{{trade.price}}</td>
+                                            <td>¥{{Number(trade.amount).toFixed(5)}}</td>
+                                            <td>¥{{Number(trade.commision).toFixed(5)}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+    <div class="testResults_right">
+        <div class="jyxq">
+            <div class="jyxq_top">
+                <span>回测区间：{{resultSum.start_date}}至{{resultSum.end_date}}</span>
+                <span class="span">|</span>
+                <span>用时: {{resultSum.consume}}秒</span>
+                <span class="span">|</span>
+                <span>状态: {{status}}</span>
+            </div>
+            <div class="jyxq_cont" v-for="daypos in dayPos ">
+
+                <div class="jyxq_cont_table1">
+                    <table>
+                        <colgroup>
+                            <col width="120">
+                            <col width="200">
+                            <col width="120">
+                            <col width="100">
+                            <col width="100">
+                            <col width="200">
+                            <col width="200">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>股票代码</th>
+                            <th>数量(股)</th>
+                            <th>收盘价(元)</th>
+                            <th>当日均价(元)</th>
+                            <th>持仓市值(元)</th>
+                            <th>逐笔盈亏</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="jyxq_cont_top">
+                    <span>总资产：<em>{{daypos.total_value}}</em></span>
+                    <span>现金：<em>{{daypos.cash}}</em></span>
+                    <span>持仓市值：<em>{{daypos.market_value}}</em></span>
+                    <span>总费用：<em>{{daypos.total_cost}}</em></span>
+                    <span>总盈亏：<i class="r">{{daypos.totalpnl}}</i></span>
+                </div>
+                <div class="jyxq_cont_table2">
+                    <table>
+                        <colgroup>
+                            <col width="120">
+                            <col width="920">
+                            <!-- <col width="200">
+                             <col width="120">
+                             <col width="100">
+                             <col width="100">
+                             <col width="200">
+                             <col width="200">-->
+                        </colgroup>
+
+                        <tbody >
+                        <tr>
+                            <td>{{daypos.date}}</td>
+                            <td>
+                                <table >
+                                    <colgroup>
+                                        <col width="200">
+                                        <col width="120">
+                                        <col width="100">
+                                        <col width="100">
+                                        <col width="200">
+                                        <col width="200">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr  v-for="p in daypos.list">
+                                        <td>{{p.code}}({{p.abbr}})</td>
+                                        <td>{{p.quantity}}</td>
+                                        <td>¥{{Number(p.last_price).toFixed(2)}}</td>
+                                        <td>¥{{Number(p.avg_price).toFixed(2)}}</td>
+                                        <td>¥{{Number(p.market_value).toFixed(5)}}</td>
+                                        <td>¥{{Number(p.pnl).toFixed(5)}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+                        <!--<tbody>
+                        <tr v-for="p in daypos.list">
+                            <td>{{daypos.date}}</td>
+                            <td>{{p.code}}({{p.abbr}})</td>
+                            <td>{{p.quantity}}</td>
+                            <td>¥{{Number(p.last_price).toFixed(2)}}</td>
+                            <td>¥{{Number(p.avg_price).toFixed(2)}}</td>
+                            <td>¥{{Number(p.market_value).toFixed(5)}}</td>
+                            <td>¥{{Number(p.pnl).toFixed(5)}}</td>
+                        </tr>
+
+                        </tbody>-->
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="testResults_right">
+        <div class="jyxq">
+            <div class="jyxq_top">
+                <span>回测区间：{{resultSum.start_date}}至{{resultSum.end_date}}</span>
+                <span class="span">|</span>
+                <span>用时: {{resultSum.consume}}秒</span>
+                <span class="span">|</span>
+                <span>状态: {{status}}</span>
+            </div>
+            <div class="jyxq_cont">
+                <ul class="clearfix logDetails">
+                    <li class="clearfix" >
+                        <pre>{{log}}</pre>
+                    </li>
+                    <li class="clearfix" >
+                        <pre>{{errorlog}}</pre>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 策略收益-->
+    <div class="testResults_right">
+        <div class="jyxq">
+            <div class="jyxq_top">
+                <span>回测区间：{{resultSum.start_date}}至{{resultSum.end_date}}</span>
+                <span class="span">|</span>
+                <span>用时: {{resultSum.consume}}秒</span>
+                <span class="span">|</span>
+                <span>状态: {{status}}</span>
+           </div>            
+        </div>
+        <div class="qjtj">
+            <table>
+                <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>1个月</th>
+                    <th>3个月</th>
+                    <th>6个月</th>
+                    <th>12个月</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="rate in returnRate">
+                    <td>{{rate.date}}</td>
+                    <td>{{Number(rate.mon1*100).toFixed(2)}}%</td>
+                    <td>{{Number(rate.mon3*100).toFixed(2)}}%</td>
+                    <td>{{Number(rate.mon6*100).toFixed(2)}}%</td>
+                    <td>{{Number(rate.mon12*100).toFixed(2)}}%</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- 基准收益-->
+    <div class="testResults_right">
+        <div class="jyxq">
+            <div class="jyxq_top">
+                <span>回测区间：{{resultSum.start_date}}至{{resultSum.end_date}}</span>
+                <span class="span">|</span>
+                <span>用时: {{resultSum.consume}}秒</span>
+                <span class="span">|</span>
+                <span>状态: {{status}}</span>
+            </div>
+        </div>
+        <div class="qjtj">
+            <table>
+                <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>1个月</th>
+                    <th>3个月</th>
+                    <th>6个月</th>
+                    <th>12个月</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="rate in benchMarkRate">
+                    <td>{{rate.date}}</td>
+                    <td>{{Number(rate.mon1*100).toFixed(2)}}%</td>
+                    <td>{{Number(rate.mon3*100).toFixed(2)}}%</td>
+                    <td>{{Number(rate.mon6*100).toFixed(2)}}%</td>
+                    <td>{{Number(rate.mon12*100).toFixed(2)}}%</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- alpha -->
+    <div class="testResults_right">
+        <div class="jyxq">
+            <div class="jyxq_top">
+                <span>回测区间：{{resultSum.start_date}}至{{resultSum.end_date}}</span>
+                <span class="span">|</span>
+                <span>用时: {{resultSum.consume}}秒</span>
+                <span class="span">|</span>
+                <span>状态: {{status}}</span>
+            </div>
+        </div>
+        <div class="qjtj">
+            <table>
+                <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>1个月</th>
+                    <th>3个月</th>
+                    <th>6个月</th>
+                    <th>12个月</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="rate in alpha">
+                    <td>{{rate.date}}</td>
+                    <td>{{rate.mon1}}</td>
+                    <td>{{rate.mon3}}</td>
+                    <td>{{rate.mon6}}</td>
+                    <td>{{rate.mon12}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- beta -->
+    <div class="testResults_right">
+        <div class="jyxq">
+            <div class="jyxq_top">
+                <span>回测区间：{{resultSum.start_date}}至{{resultSum.end_date}}</span>
+                <span class="span">|</span>
+                <span>用时: {{resultSum.consume}}秒</span>
+                <span class="span">|</span>
+                <span>状态: {{status}}</span>
+            </div>
+        </div>
+        <div class="qjtj">
+            <table>
+                <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>1个月</th>
+                    <th>3个月</th>
+                    <th>6个月</th>
+                    <th>12个月</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="rate in beta">
+                    <td>{{rate.date}}</td>
+                    <td>{{rate.mon1}}</td>
+                    <td>{{rate.mon3}}</td>
+                    <td>{{rate.mon6}}</td>
+                    <td>{{rate.mon12}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- sharpe -->
+    <div class="testResults_right">
+        <div class="jyxq">
+            <div class="jyxq_top">
+                <span>回测区间：{{resultSum.start_date}}至{{resultSum.end_date}}</span>
+                <span class="span">|</span>
+                <span>用时: {{resultSum.consume}}秒</span>
+                <span class="span">|</span>
+                <span>状态: {{status}}</span>
+            </div>
+        </div>
+        <div class="qjtj">
+            <table>
+                <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>1个月</th>
+                    <th>3个月</th>
+                    <th>6个月</th>
+                    <th>12个月</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="rate in sharpe">
+                    <td>{{rate.date}}</td>
+                    <td>{{rate.mon1}}</td>
+                    <td>{{rate.mon3}}</td>
+                    <td>{{rate.mon6}}</td>
+                    <td>{{rate.mon12}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- sortino -->
+    <div class="testResults_right">
+        <div class="jyxq">
+            <div class="jyxq_top">
+                <span>回测区间：{{resultSum.start_date}}至{{resultSum.end_date}}</span>
+                <span class="span">|</span>
+                <span>用时: {{resultSum.consume}}秒</span>
+                <span class="span">|</span>
+                <span>状态: {{status}}</span>
+            </div>
+        </div>
+        <div class="qjtj">
+            <table>
+                <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>1个月</th>
+                    <th>3个月</th>
+                    <th>6个月</th>
+                    <th>12个月</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="rate in sortino">
+                    <td>{{rate.date}}</td>
+                    <td>{{rate.mon1}}</td>
+                    <td>{{rate.mon3}}</td>
+                    <td>{{rate.mon6}}</td>
+                    <td>{{rate.mon12}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- ir -->
+    <div class="testResults_right">
+        <div class="jyxq">
+            <div class="jyxq_top">
+                <span>回测区间：{{resultSum.start_date}}至{{resultSum.end_date}}</span>
+                <span class="span">|</span>
+                <span>用时: {{resultSum.consume}}秒</span>
+                <span class="span">|</span>
+                <span>状态: {{status}}</span>
+            </div>
+        </div>
+        <div class="qjtj">
+            <table>
+                <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>1个月</th>
+                    <th>3个月</th>
+                    <th>6个月</th>
+                    <th>12个月</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="rate in ir">
+                    <td>{{rate.date}}</td>
+                    <td>{{rate.mon1}}</td>
+                    <td>{{rate.mon3}}</td>
+                    <td>{{rate.mon6}}</td>
+                    <td>{{rate.mon12}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- vola -->
+    <div class="testResults_right">
+        <div class="jyxq">
+            <div class="jyxq_top">
+                <span>回测区间：{{resultSum.start_date}}至{{resultSum.end_date}}</span>
+                <span class="span">|</span>
+                <span>用时: {{resultSum.consume}}秒</span>
+                <span class="span">|</span>
+                <span>状态: {{status}}</span>
+            </div>
+        </div>
+        <div class="qjtj">
+            <table>
+                <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>1个月</th>
+                    <th>3个月</th>
+                    <th>6个月</th>
+                    <th>12个月</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="rate in vola">
+                    <td>{{rate.date}}</td>
+                    <td>{{Number(rate.mon1*100).toFixed(2)}}%</td>
+                    <td>{{Number(rate.mon3*100).toFixed(2)}}%</td>
+                    <td>{{Number(rate.mon6*100).toFixed(2)}}%</td>
+                    <td>{{Number(rate.mon12*100).toFixed(2)}}%</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- down -->
+    <div class="testResults_right">
+        <div class="jyxq">
+            <div class="jyxq_top">
+                <span>回测区间：{{resultSum.start_date}}至{{resultSum.end_date}}</span>
+                <span class="span">|</span>
+                <span>用时: {{resultSum.consume}}秒</span>
+                <span class="span">|</span>
+                <span>状态: {{status}}</span>
+            </div>
+        </div>
+        <div class="qjtj">
+            <table>
+                <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>1个月</th>
+                    <th>3个月</th>
+                    <th>6个月</th>
+                    <th>12个月</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="rate in down">
+                    <td>{{rate.date}}</td>
+                    <td>{{rate.mon1}}</td>
+                    <td>{{rate.mon3}}</td>
+                    <td>{{rate.mon6}}</td>
+                    <td>{{rate.mon12}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/webapp/js/lab/chartHelper.js"></script>
+<script type="text/javascript" src="/webapp/js/lab/testResults.js"></script>
+<!--====================量化平台-footer====================-->
+<footer>
+	<div class="main">
+        <div class="foot_left">
+            <ul>
+                <li>
+                    <h2>关于</h2>
+                    <p><a href="">关于我们</a></p>
+                    <p><a href="">加入我们</a></p>
+                    <p><a href="">联系我们</a></p>
+                </li>
+                <li>
+                    <h2>API文档</h2>
+                    <p><a href="">策略研究文档</a></p>
+                    <p><a href="">Python</a></p>
+                    <p><a href="">API文档</a></p>
+                </li>
+                <li class="r">
+                    <h2>帮助</h2>
+                    <p><a href="">常见问题</a></p>
+                    <p><a href="">Python教程</a></p>
+                    <p><a href="">产品更新日志</a></p>
+                    <p><a href="">新手指南</a></p>
+                </li>
+            </ul>
+        </div>
+        <div class="foot_right">
+        	<div class="ewm">
+            	<img src="/webapp/images/ewm.jpg" alt="二维码" width="94" height="94" />
+                <p>微信公众号</p>
+            </div>
+            <div class="ewm r">
+            	<img src="/webapp/images/ewm.jpg" alt="二维码" width="94" height="94" />
+                <p>淘股王APP</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="beian">@2016@淘股王版权所有 | 投资有风险，购买需谨慎</div>
+</body>
+</html>

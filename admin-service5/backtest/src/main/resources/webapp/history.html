@@ -1,0 +1,825 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>量化平台-创建策略-回测历史</title>
+
+<!--量化平台-css样式表-->
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/style.css">
+
+<!--量化平台-js引用表-->
+<script type="text/javascript" src="js/jquery-min-1.7.js"></script>
+<script type="text/javascript" src="js/js.js"></script>
+<script type="text/javascript" src="js/pop/pop-up.js"></script>
+
+</head>
+
+<body>
+
+<!--====================量化平台-header====================-->
+<header>
+	<div class="main">
+    	<div class="logo"><a href="index.html"><img src="images/logo.png" alt="量化平台" width="120" height="50"/></a></div>
+        <div class="menu">
+            <nav>
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li class="hover"><a href="#">创建策略</a>
+                    	<div class="downMenu">
+                        	<div class="downMenu_box">                            
+                                <a href="createStrategy.html">策略生成器</a> 
+                                <a href="editStrategy.html">python策略</a> 
+                                <div class="triangle_border tb_background"></div> 
+                                <div class="triangle_border tb_border"></div> 
+                            </div>
+                        </div>
+                    </li>
+                    <li><a href="myStrategy.html">我的策略</a></li>
+                    <li><a href="document.html">文档</a></li>
+                </ul>
+            </nav>
+            <div class="header_right">
+                <a href="login.html">登录</a>
+                <a href="register.html" class="r">免注册，快速登录</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!--====================量化平台-myStrategy_content内容样式====================-->
+<div class="createStrategy_content">
+    <div class="createStrategy_top">
+		<a href="editStrategy.html">编辑策略</a>
+        <a href="history.html" class="r hover">回测历史</a>
+        <div class="return">
+        	<p>策略名称2017-06-09 11:19:40</p>
+        </div>
+    </div>  
+    <div class="main">
+        <div class="history">
+        	<div class="history_top">
+            	<table>
+                	<colgroup>
+                        <col width="210">
+                        <col width="210">
+                        <col width="210">
+                        <col width="110">
+                        <col width="120">
+                        <col width="120">
+                        <col width="230">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="a">回测时间</th>
+                            <th class="a">起始时间 </th>
+                            <th class="a">结束时间</th>
+                            <th>年化收益</th>
+                            <th>最大回撤</th>
+                            <th>状态</th>                                
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>                    
+            <div class="history_contact">
+            	<table>
+                	<colgroup>
+                        <col width="210">
+                        <col width="210">
+                        <col width="210">
+                        <col width="110">
+                        <col width="120">
+                        <col width="120">
+                        <col width="230">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>2017-05-24  14:28:33</td>
+                            <td>2017-05-24  14:28:33</td>
+                            <td>2017-05-24  14:28:33</td>
+                            <td class="a">80%</td>
+                            <td>15%</td>
+                            <td>结束</td>                                
+                            <td><a href="javascript:void(0);" class="pop">查看快照</a><a href="testResults.html">回测结果</a></td>
+                        </tr>
+                        <tr>
+                            <td>2017-05-24  14:28:33</td>
+                            <td>2017-05-24  14:28:33</td>
+                            <td>2017-05-24  14:28:33</td>
+                            <td class="a">80%</td>
+                            <td>15%</td>
+                            <td>结束</td>                                
+                            <td><a href="javascript:void(0);" class="pop">查看快照</a><a href="testResults.html">回测结果</a></td>
+                        </tr>
+                        <tr>
+                            <td>2017-05-24  14:28:33</td>
+                            <td>2017-05-24  14:28:33</td>
+                            <td>2017-05-24  14:28:33</td>
+                            <td class="a">80%</td>
+                            <td>15%</td>
+                            <td class="b">正在运行</td>                                
+                            <td><a href="javascript:void(0);" class="pop">查看快照</a><a href="testResults.html">回测结果</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+            
+        </div>  
+    </div>
+</div>
+
+	
+<div id="pop_index" class="pop_index">
+    <div class="pop_top">
+    	<h2>查看快照</h2>
+    	<a href="javascript:void(0)" title="" class="close_btn" id="closeBtn"></a>
+    </div>
+    	<div class="creatStrategy">
+            <div class="creatStrategy_cont">
+                <h2><span>交易设置</span></h2>
+                <div class="creat_select">
+                    <ul>
+                        <li class="creat_select_li">
+                            <p>持仓数量</p>
+                            <div class="nice_select selects" name="nice_select">                    
+                                <input type="text" value="10">                          
+                            </div>
+                        </li>
+                        <li class="creat_select_li">
+                            <p>加权方式</p>
+                            <div class="nice_select" name="nice_select">                    
+                                <input type="text" value="加权方式" readonly>                    
+                                <ul>                    
+                                    <li data-value="1">加权方式</li>                    
+                                    <li data-value="2">加权方式</li>  
+                                    <li data-value="3">加权方式</li>                    
+                                    <li data-value="4">加权方式</li>                     
+                                </ul>                    
+                            </div>
+                        </li>
+                        <li class="creat_select_li">
+                            <p>交易价格</p>
+                            <div class="nice_select" name="nice_select">                    
+                                <input type="text" value="交易价格" readonly>                    
+                                <ul>                    
+                                    <li data-value="1">交易价格</li>                    
+                                    <li data-value="2">交易价格</li>  
+                                    <li data-value="3">交易价格</li>                    
+                                    <li data-value="4">交易价格</li>                   
+                                </ul>                    
+                            </div>
+                        </li>
+                        <li class="creat_select_li">
+                            <p>调仓周期</p>
+                            <div class="nice_select" name="nice_select">                    
+                                <input type="text" value="调仓周期" readonly>                    
+                                <ul>                    
+                                    <li data-value="1">调仓周期</li>                    
+                                    <li data-value="2">调仓周期</li>  
+                                    <li data-value="3">调仓周期</li>                    
+                                    <li data-value="4">调仓周期</li>                     
+                                </ul>                    
+                            </div>
+                        </li>
+                        <li class="creat_select_li">
+                            <p>调仓跨度</p>                        	
+                            <div class="nice_select selects" name="nice_select">                    
+                                <input type="text" value="6">                          
+                            </div>
+                        </li>
+                        <li class="creat_select_li">
+                            <p>调仓日序号</p>
+                            <div class="nice_select" name="nice_select">                    
+                                <input type="text" value="调仓日序号" readonly>                    
+                                <ul>                    
+                                    <li data-value="1">调仓日序号</li>                    
+                                    <li data-value="2">调仓日序号</li>  
+                                    <li data-value="3">调仓日序号</li>                    
+                                    <li data-value="4">调仓日序号</li>                   
+                                </ul>                    
+                            </div>
+                        </li>                        
+                    </ul>
+                </div>
+            </div>
+            <div class="creatStrategy_cont">
+                <h2><span>股票池</span></h2>
+                <div class="creat_select">
+                    <ul>
+                        <li class="creat_select_li">
+                            <p>指数成分</p>
+                            <div class="nice_select" name="nice_select">                    
+                                <input type="text" value="指数成分" readonly>                    
+                                <ul>                    
+                                    <li data-value="1">指数成分</li>                    
+                                    <li data-value="2">指数成分</li>  
+                                    <li data-value="3">指数成分</li>                    
+                                    <li data-value="4">指数成分</li>                     
+                                </ul>                    
+                            </div>
+                        </li>
+                        <li class="creat_select_li">
+                            <p>板块</p>
+                            <div class="nice_select" name="nice_select">                    
+                                <input type="text" value="板块" readonly>                    
+                                <ul>                    
+                                    <li data-value="1">板块</li>                    
+                                    <li data-value="2">板块</li>  
+                                    <li data-value="3">板块</li>                    
+                                    <li data-value="4">板块</li>                     
+                                </ul>                    
+                            </div>
+                        </li>
+                        <li class="creat_select_li">
+                            <p>行业</p>
+                            <div class="nice_select" name="nice_select">                    
+                                <input type="text" value="行业" readonly>                    
+                                <ul>                    
+                                    <li data-value="1">行业</li>                    
+                                    <li data-value="2">行业</li>  
+                                    <li data-value="3">行业</li>                    
+                                    <li data-value="4">行业</li>                   
+                                </ul>                    
+                            </div>
+                        </li>
+                        <li class="creat_select_li">
+                            <p>交易所</p>
+                            <div class="nice_select" name="nice_select">                    
+                                <input type="text" value="调仓周期" readonly>                    
+                                <ul>                    
+                                    <li data-value="1">交易所</li>                    
+                                    <li data-value="2">交易所</li>  
+                                    <li data-value="3">交易所</li>                    
+                                    <li data-value="4">交易所</li>                     
+                                </ul>                    
+                            </div>
+                        </li>
+                        <li class="creat_select_li">
+                            <p>融资融券</p>                        	
+                            <div class="nice_select" name="nice_select">                    
+                                <input type="text" value="融资融券" readonly>                    
+                                <ul>                    
+                                    <li data-value="1">融资融券</li>                    
+                                    <li data-value="2">融资融券</li>  
+                                    <li data-value="3">融资融券</li>                    
+                                    <li data-value="4">融资融券</li>                     
+                                </ul>                    
+                            </div>
+                        </li>
+                        <li class="creat_select_li">
+                            <p style="margin-left:47px;">剔除ST、*ST</p>                 
+                            <span><input type="radio"></span>
+                        </li>                        
+                    </ul>
+                </div>
+            </div>
+            <div class="creatStrategy_cont">
+                <h2><span>选股条件</span><span class="r"><a href="">+&nbsp;添加</a></span></h2>
+                <div class="creat_biaoge">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="150">指标</th>
+                                <th width="150">运算符</th>
+                                <th width="150">范围</th>
+                                <th width="90">值</th>
+                                <th width="130">编辑</th>
+                                <th width="130">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>净利润增速</td>
+                                <td>                            
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="排名%最大" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>       
+                                            <li data-value="2">大于</li>   
+                                            <li data-value="3">等于</li>   
+                                            <li data-value="4">小于</li>             
+                                            <li data-value="5">排名%最大</li>              
+                                            <li data-value="6">排名%最小</li>                      
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="行业内" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>                    
+                                            <li data-value="2">行业内</li>                     
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select selects" name="nice_select">                    
+                                        <input type="text" value="10">                         
+                                    </div>
+                                </td>
+                                <td><a href="" class="binaji"></a></td>
+                                <td><a href="" class="shanchu"></a></td>
+                            </tr>
+                            <tr>
+                                <td>市值</td>
+                                <td>                            
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="排名%最大" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>       
+                                            <li data-value="2">大于</li>   
+                                            <li data-value="3">等于</li>   
+                                            <li data-value="4">小于</li>             
+                                            <li data-value="5">排名%最大</li>              
+                                            <li data-value="6">排名%最小</li>                      
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="行业内" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>                    
+                                            <li data-value="2">行业内</li>                     
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select selects" name="nice_select">                    
+                                        <input type="text" value="10">                         
+                                    </div>
+                                </td>
+                                <td><a href="" class="binaji"></a></td>
+                                <td><a href="" class="shanchu"></a></td>
+                            </tr>
+                            <tr>
+                                <td>净利润增速</td>
+                                <td>                            
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="排名%最大" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>       
+                                            <li data-value="2">大于</li>   
+                                            <li data-value="3">等于</li>   
+                                            <li data-value="4">小于</li>             
+                                            <li data-value="5">排名%最大</li>              
+                                            <li data-value="6">排名%最小</li>                      
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="行业内" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>                    
+                                            <li data-value="2">行业内</li>                     
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select selects" name="nice_select">                    
+                                        <input type="text" value="10">                         
+                                    </div>
+                                </td>
+                                <td><a href="" class="binaji"></a></td>
+                                <td><a href="" class="shanchu"></a></td>
+                            </tr>
+                            <tr>
+                                <td>市值</td>
+                                <td>                            
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="排名%最大" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>       
+                                            <li data-value="2">大于</li>   
+                                            <li data-value="3">等于</li>   
+                                            <li data-value="4">小于</li>             
+                                            <li data-value="5">排名%最大</li>              
+                                            <li data-value="6">排名%最小</li>                      
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="行业内" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>                    
+                                            <li data-value="2">行业内</li>                     
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select selects" name="nice_select">                    
+                                        <input type="text" value="10">                         
+                                    </div>
+                                </td>
+                                <td><a href="" class="binaji"></a></td>
+                                <td><a href="" class="shanchu"></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="creatStrategy_cont">
+                <h2><span>排序方式</span><span class="r"><a href="">+&nbsp;添加</a></span></h2>
+                <div class="creat_biaoge">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="150">指标</th>
+                                <th width="150">顺序</th>
+                                <th width="150">范围</th>
+                                <th width="90">值</th>
+                                <th width="130">编辑</th>
+                                <th width="130">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>净利润增速</td>
+                                <td>                            
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="排名%最大" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>       
+                                            <li data-value="2">大于</li>   
+                                            <li data-value="3">等于</li>   
+                                            <li data-value="4">小于</li>             
+                                            <li data-value="5">排名%最大</li>              
+                                            <li data-value="6">排名%最小</li>                      
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="行业内" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>                    
+                                            <li data-value="2">行业内</li>                     
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select selects" name="nice_select">                    
+                                        <input type="text" value="10">                         
+                                    </div>
+                                </td>
+                                <td><a href="" class="binaji"></a></td>
+                                <td><a href="" class="shanchu"></a></td>
+                            </tr>
+                            <tr>
+                                <td>市值</td>
+                                <td>                            
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="排名%最大" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>       
+                                            <li data-value="2">大于</li>   
+                                            <li data-value="3">等于</li>   
+                                            <li data-value="4">小于</li>             
+                                            <li data-value="5">排名%最大</li>              
+                                            <li data-value="6">排名%最小</li>                      
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="行业内" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>                    
+                                            <li data-value="2">行业内</li>                     
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select selects" name="nice_select">                    
+                                        <input type="text" value="10">                         
+                                    </div>
+                                </td>
+                                <td><a href="" class="binaji"></a></td>
+                                <td><a href="" class="shanchu"></a></td>
+                            </tr>
+                            <tr>
+                                <td>净利润增速</td>
+                                <td>                            
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="排名%最大" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>       
+                                            <li data-value="2">大于</li>   
+                                            <li data-value="3">等于</li>   
+                                            <li data-value="4">小于</li>             
+                                            <li data-value="5">排名%最大</li>              
+                                            <li data-value="6">排名%最小</li>                      
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="行业内" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>                    
+                                            <li data-value="2">行业内</li>                     
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select selects" name="nice_select">                    
+                                        <input type="text" value="10">                         
+                                    </div>
+                                </td>
+                                <td><a href="" class="binaji"></a></td>
+                                <td><a href="" class="shanchu"></a></td>
+                            </tr>
+                            <tr>
+                                <td>市值</td>
+                                <td>                            
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="排名%最大" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>       
+                                            <li data-value="2">大于</li>   
+                                            <li data-value="3">等于</li>   
+                                            <li data-value="4">小于</li>             
+                                            <li data-value="5">排名%最大</li>              
+                                            <li data-value="6">排名%最小</li>                      
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="行业内" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>                    
+                                            <li data-value="2">行业内</li>                     
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select selects" name="nice_select">                    
+                                        <input type="text" value="10">                         
+                                    </div>
+                                </td>
+                                <td><a href="" class="binaji"></a></td>
+                                <td><a href="" class="shanchu"></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="creatStrategy_cont">
+                <h2><span>个股止损</span><span class="r"><a href="">+&nbsp;添加</a></span></h2>
+                <div class="creat_biaoge">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="150">指标</th>
+                                <th width="150">运算符</th>
+                                <th width="150">范围</th>
+                                <th width="90">值</th>
+                                <th width="130">编辑</th>
+                                <th width="130">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>净利润增速</td>
+                                <td>                            
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="排名%最大" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>       
+                                            <li data-value="2">大于</li>   
+                                            <li data-value="3">等于</li>   
+                                            <li data-value="4">小于</li>             
+                                            <li data-value="5">排名%最大</li>              
+                                            <li data-value="6">排名%最小</li>                      
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="行业内" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>                    
+                                            <li data-value="2">行业内</li>                     
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select selects" name="nice_select">                    
+                                        <input type="text" value="10">                         
+                                    </div>
+                                </td>
+                                <td><a href="" class="binaji"></a></td>
+                                <td><a href="" class="shanchu"></a></td>
+                            </tr>
+                            <tr>
+                                <td>市值</td>
+                                <td>                            
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="排名%最大" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>       
+                                            <li data-value="2">大于</li>   
+                                            <li data-value="3">等于</li>   
+                                            <li data-value="4">小于</li>             
+                                            <li data-value="5">排名%最大</li>              
+                                            <li data-value="6">排名%最小</li>                      
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="行业内" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>                    
+                                            <li data-value="2">行业内</li>                     
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select selects" name="nice_select">                    
+                                        <input type="text" value="10">                         
+                                    </div>
+                                </td>
+                                <td><a href="" class="binaji"></a></td>
+                                <td><a href="" class="shanchu"></a></td>
+                            </tr>
+                            <tr>
+                                <td>净利润增速</td>
+                                <td>                            
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="排名%最大" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>       
+                                            <li data-value="2">大于</li>   
+                                            <li data-value="3">等于</li>   
+                                            <li data-value="4">小于</li>             
+                                            <li data-value="5">排名%最大</li>              
+                                            <li data-value="6">排名%最小</li>                      
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="行业内" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>                    
+                                            <li data-value="2">行业内</li>                     
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select selects" name="nice_select">                    
+                                        <input type="text" value="10">                         
+                                    </div>
+                                </td>
+                                <td><a href="" class="binaji"></a></td>
+                                <td><a href="" class="shanchu"></a></td>
+                            </tr>
+                            <tr>
+                                <td>市值</td>
+                                <td>                            
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="排名%最大" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>       
+                                            <li data-value="2">大于</li>   
+                                            <li data-value="3">等于</li>   
+                                            <li data-value="4">小于</li>             
+                                            <li data-value="5">排名%最大</li>              
+                                            <li data-value="6">排名%最小</li>                      
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="行业内" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>                    
+                                            <li data-value="2">行业内</li>                     
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select selects" name="nice_select">                    
+                                        <input type="text" value="10">                         
+                                    </div>
+                                </td>
+                                <td><a href="" class="binaji"></a></td>
+                                <td><a href="" class="shanchu"></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="creatStrategy_cont">
+                <h2><span>大盘止损</span><span class="r"><a href="">+&nbsp;添加</a></span></h2>
+                <div class="creat_biaoge">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="150">指标</th>
+                                <th width="250">指数</th>
+                                <th width="200">运算符</th>
+                                <th width="150">范围</th>
+                                <th width="90">值</th>
+                                <th width="100">编辑</th>
+                                <th width="100">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>净利润增速</td>
+                                <td>                            
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="申万交通运输" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>       
+                                            <li data-value="2">申万交通运输</li>   
+                                            <li data-value="3">申万交通运输</li>   
+                                            <li data-value="4">申万交通运输</li>                      
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>                            
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="排名%最大" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>       
+                                            <li data-value="2">大于</li>   
+                                            <li data-value="3">等于</li>   
+                                            <li data-value="4">小于</li>             
+                                            <li data-value="5">排名%最大</li>              
+                                            <li data-value="6">排名%最小</li>                      
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select" name="nice_select">                    
+                                        <input type="text" value="行业内" readonly>                    
+                                        <ul>                    
+                                            <li data-value="1">全部</li>                    
+                                            <li data-value="2">行业内</li>                     
+                                        </ul>                    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="nice_select selects" name="nice_select">                    
+                                        <input type="text" value="10">                         
+                                    </div>
+                                </td>
+                                <td><a href="" class="binaji"></a></td>
+                                <td><a href="" class="shanchu"></a></td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+</div>
+<!--====================量化平台-footer====================-->
+<footer>
+	<div class="main">
+        <div class="foot_left">
+            <ul>
+                <li>
+                    <h2>关于</h2>
+                    <p><a href="">关于我们</a></p>
+                    <p><a href="">加入我们</a></p>
+                    <p><a href="">联系我们</a></p>
+                </li>
+                <li>
+                    <h2>API文档</h2>
+                    <p><a href="">策略研究文档</a></p>
+                    <p><a href="">Python</a></p>
+                    <p><a href="">API文档</a></p>
+                </li>
+                <li class="r">
+                    <h2>帮助</h2>
+                    <p><a href="">常见问题</a></p>
+                    <p><a href="">Python教程</a></p>
+                    <p><a href="">产品更新日志</a></p>                
+                    <p><a href="">新手指南</a></p>
+                </li>
+            </ul>
+        </div>
+        <div class="foot_right">
+        	<div class="ewm">
+            	<img src="images/ewm.jpg" alt="二维码" width="94" height="94" />
+                <p>微信公众号</p>
+            </div>
+            <div class="ewm r">
+            	<img src="images/ewm.jpg" alt="二维码" width="94" height="94" />
+                <p>淘股王APP</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="beian">@2016@淘股王版权所有 | 投资有风险，购买需谨慎</div>
+</body>
+</html>

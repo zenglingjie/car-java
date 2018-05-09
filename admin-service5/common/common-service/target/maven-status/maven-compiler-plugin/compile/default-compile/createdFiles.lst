@@ -1,0 +1,12 @@
+qfx\common\service\service\TargetExecutor.class
+qfx\common\service\datasource\DynamicDataSourceGlobal.class
+qfx\common\service\datasource\DynamicDataSourceTransactionManager.class
+qfx\common\service\dao\BaseDao.class
+qfx\common\service\datasource\DynamicDataSource.class
+qfx\common\service\model\FactorParam.class
+qfx\common\service\model\FactorReq.class
+qfx\common\service\model\IFactor.class
+qfx\common\service\model\FactorRsp.class
+qfx\common\service\dao\CrudDao.class
+qfx\common\service\model\TargetAno.class
+qfx\common\service\datasource\DynamicDataSourceHolder.class

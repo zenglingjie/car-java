@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>量化平台-快速登录</title>
+
+<!--量化平台-css样式表-->
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/style.css">
+
+<!--量化平台-js引用表-->
+<script type="text/javascript" src="js/jquery-min-1.7.js"></script>
+<script type="text/javascript" src="js/js.js"></script>
+</head>
+
+<body>
+
+<!--====================量化平台-header====================-->
+<header>
+	<div class="main">
+    	<div class="logo"><a href="index.html"><img src="/webapp/images/logo.png" alt="量化平台" width="120" height="50"/></a></div>
+        <div class="menu">
+            <nav>
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="#">创建策略</a>
+                    	<div class="downMenu">
+                        	<div class="downMenu_box">                            
+                                <a href="createStrategy.html">策略生成器</a> 
+                                <a href="editStrategy.html">python策略</a> 
+                                <div class="triangle_border tb_background"></div> 
+                                <div class="triangle_border tb_border"></div> 
+                            </div>
+                        </div>
+                    </li>
+                    <li><a href="myStrategy.html">我的策略</a></li>
+                    <li><a href="document.html">文档</a></li>
+                </ul>
+            </nav>
+            <div class="header_right">
+                <a th:if="${session._http_login_pin_}"><a href="/logout.html">退出</a></a>
+                <a th:unless="${session._http_login_pin_ != null}"><a href="login.html">登录</a></a>
+                <a href="/login.html">登录</a>
+                <!--<a href="register.html" class="r">免注册，快速登录</a>-->
+            </div>
+        </div>
+    </div>
+</header>
+
+<!--====================量化平台-login-register内容样式====================-->
+<div class="login_content">
+    <div class="main">
+        <div class="login_shadow">
+            <div class="login">
+                <div class="login_top">
+                    <a href="javascript:void(0);" class="">账户登录</a>
+                    <a href="javascript:void(0);" class="focus r">快捷登录</a>
+                </div>
+                <div class="login_incont" style="display:none;">
+                    <span>
+                        <label for="username">手机号</label>
+                        <input type="text" class="input_txt border_radius" id="username" />
+                    </span>
+                    <span>
+                        <label for="password">密码</label>
+                        <input type="text" class="input_txt border_radius" id="password" />
+                    </span>                    
+                    <button type="submit">登录</button>
+                </div>
+                <div class="login_incont">
+                	<span>
+                        <label for="username">手机号</label>
+                        <input type="text" class="input_txt border_radius" id="username" />
+                    </span>
+                    <span class="r">
+                        <label for="yzm">请输入验证码</label>
+                        <input type="text" class="input_txt border_radius" id="yzm" />
+                    </span>     
+                    <button type="submit" class="yzm">获取验证码</button>               
+                    <button type="submit">登录</button>
+                </div>
+            </div>
+        </div>
+    </div>	
+</div>
+<!--====================量化平台-footer====================-->
+<!--====================量化平台-footer====================-->
+<div class="footer">
+	<a href=""><span>联系我们</span>|</a>
+	<a href=""><span>策略研究文档</span>|</a>
+	<a href=""><span>Python API文档</span>|</a>
+	<a href=""><span>常见问题</span>|</a>
+	<a href=""><span>新手指南</span>|</a>
+	<a href=""><span>下载淘股王</span></a>
+</div>
+<div class="beian">@2016@淘股王版权所有 | 投资有风险，购买需谨慎</div>
+</body>
+</html>

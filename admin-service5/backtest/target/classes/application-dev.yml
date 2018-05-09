@@ -1,0 +1,62 @@
+server:
+  port: 8009
+spring:
+    /*dubbo:
+      application:
+        name: backtest
+      registry:
+        protocol: zookeeper
+        address: 172.18.44.122:2181
+      protocol:
+    datasource:
+        url: jdbc:mysql://172.18.44.188:3306/?useUnicode=true&characterEncoding=utf8
+        username: testuser
+        password: test@tgw88
+    mvc:
+        static-path-pattern: classpath:/static/
+    resources:
+        static-locations: classpath:/static/
+mybatis:
+    typeAliasesPackage: qfx.model
+    mapperLocations: classpath*:/qfx/mapper/*.xml
+
+jetcache:
+    statIntervalMinutes: 10
+    hiddenPackages: qfx
+    local:
+       default:
+          type: linkedhashmap
+          limit: 5000
+          defaultExpireInMillis: 3600000
+    remote:
+        default:
+            type: redis
+            poolConfig:
+                minIdle: 5
+                maxIdle: 50
+                maxTotal: 5000
+            host: 172.18.44.122
+            port: 6382
+            defaultExpireInMillis: 300000
+            keyConvertor: fastjson
+custumProp: #自定义的属性和值
+    loginUrl: http://172.17.14.71/webapi/myapp/WxInterface/Login?
+    runCmd: e:/runpython.bat
+    isDev: false
+    #runCmd: /backup/run.bat
+    arrayProp: 1,2
+    listProp:
+      - name: a
+        value: aValue
+      - name: b
+        value: bValue
+    mapCodeSave:
+        prefix: code
+        suffix: .py
+        saveCodeFilePath: C:/Users/win7/Desktop/testFile
+        saveFilesFlag: true
+        rqConfigPath: E:/document/RQAlpha/config.yml
+        os: win
+
+
+

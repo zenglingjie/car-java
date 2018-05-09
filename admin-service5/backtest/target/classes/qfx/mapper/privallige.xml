@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qfx.mapper.PrivalligeMapper">
+
+    <resultMap id="Privallige" type="qfx.model.Privallige">
+        <result column="id" property="id" />
+        <result column="value" property="value" />
+    </resultMap>
+    <insert  id="addPrivallige">
+        INSERT INTO managementV2.Privallige(value)VALUES(#{value})
+    </insert>
+
+    <delete id="deletePrivallige" parameterType="int">
+        delete from  managementV2.Privallige where  id=#{id}
+    </delete>
+
+
+    <update id="updatePrivallige">
+        update managementV2.Privallige set value=#{value} where  id=#{id}
+    </update>
+
+    <select id="selectPrivallige"  resultMap="Privallige">
+        select * from managementV2.Privallige
+    </select>
+</mapper>

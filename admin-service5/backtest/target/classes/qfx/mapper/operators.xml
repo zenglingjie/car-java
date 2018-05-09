@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qfx.mapper.OperatorsMapper">
+
+    <resultMap id="Operators" type="qfx.model.Operators">
+        <result column="id" property="id" />
+        <result column="enName" property="enName" />
+        <result column="cnName" property="cnName" />
+        <result column="isDefault" property="isDefault" />
+        <result column="factorId" property="factorId" />
+
+    </resultMap>
+    <insert  id="addOperators">
+        INSERT INTO managementV2.Operators(factorId,enName,cnName,isDefault)VALUES(#{factorId},#{enName},#{cnName},#{isDefault})
+    </insert>
+
+    <delete id="deleteOperators" parameterType="int">
+        delete from  managementV2.Operators where  factorId=#{factorId}
+    </delete>
+
+
+    <update id="updateOperators">
+        update managementV2.Operators set enName=#{enName},cnName=#{cnName},isDefault=#{isDefault}  where factorId=#{factorId}
+    </update>
+
+    <select id="selectOperators"  resultMap="Operators">
+        select * from managementV2.Operators
+    </select>
+
+    <select id="operatorsId" parameterType="String" resultType="Integer">
+        select  factorId  from  managementV2.Operators where cnName=#{cnName}
+    </select>
+</mapper>

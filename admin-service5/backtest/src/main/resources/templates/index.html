@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>量化平台-首页</title>
+
+<!--量化平台-css样式表-->
+<link rel="stylesheet" type="text/css" href="/webapp/css/reset.css">
+<link rel="stylesheet" type="text/css" href="/webapp/css/style.css">
+<link rel="stylesheet" type="text/css" href="/webapp/css/banner.css"/>
+
+<!--量化平台-js引用表-->
+<script type="text/javascript" src="/webapp/js/jquery-min-1.7.js"></script>
+<script type="text/javascript" src="/webapp/js/js.js"></script>
+</head>
+
+<body >
+
+<!--====================量化平台-header====================-->
+<header class="shouye">
+	<div class="main">
+    	<div class="logo"><a href="index.html"><img src="/webapp/images/logo.png" alt="量化平台" width="120" height="50"/></a></div>
+        <div class="menu">
+            <nav>
+                <ul>
+                    <li class="hover"><a href="index.html">首页</a></li>
+                    <li><a href="#">创建策略</a>
+                    	<div class="downMenu">
+                        	<div class="downMenu_box">                            
+                                <a href="createStrategy.html">策略生成器</a> 
+                                <a href="editStrategy.html">python策略</a> 
+                                <div class="triangle_border tb_background"></div> 
+                                <div class="triangle_border tb_border"></div>  
+                            </div>
+                        </div>
+                    </li>
+                    <li><a href="myStrategy.html">我的策略</a></li>
+                    <li><a href="document.html">文档</a></li>
+                </ul>
+            </nav>
+            <div class="header_right">
+                <ul>
+                    <li th:unless="${session._http_login_pin_ != null}"><a id = "loginurl" href="/webapp/login" >登录</a></li>
+                    <li th:if="${session._http_login_pin_}"><a id = "logouturl" class="r" href="/webapp/logout.html">退出</a></li>
+                </ul>
+                <!--<a href="register.html" class="r">免注册，快速登录</a>-->
+            </div>
+        </div>
+    </div>
+</header>
+
+<!--====================量化平台-首页内容样式====================-->
+
+
+	<!-- banner 开始 -->
+	<div id="demo01" class="flexslider">
+		<ul class="slides">
+	        <li><a href="" class="img"><img src="/webapp/images/banner.jpg" alt="" width="100%"/></a>
+	        	<div class="banner_wen">
+	        		<h2>华讯量化平台</h2>
+	        		<p>为投资者量身打造比肩专业机构的投资神器</p>
+	        		<a href="">新手指引</a>
+	        		<a href="">开始研究</a>
+	        	</div>	        	
+	        </li>
+            <li><a href="" class="img"><img src="/webapp/images/banner.jpg" alt="" width="100%"/></a>
+            	<div class="banner_wen">
+	        		<h2>华讯量化平台</h2>
+	        		<p>为投资者量身打造比肩专业机构的投资神器</p>
+	        		<a href="">新手指引</a>
+	        		<a href="">开始研究</a>
+	        	</div>	             	
+            </li>
+            <li><a href="" class="img"><img src="/webapp/images/banner.jpg" alt="" width="100%"/></a>
+            	<div class="banner_wen">
+	        		<h2>华讯量化平台</h2>
+	        		<p>为投资者量身打造比肩专业机构的投资神器</p>
+	        		<a href="">新手指引</a>
+	        		<a href="">开始研究</a>
+	        	</div>	 	        	           	
+            </li>
+		</ul>
+	</div>
+	<!-- banner 结束 --> 
+
+<div class="home_cont">
+    <div class="main">
+    	<div class="home_cont">
+            <div class="home_left">
+                <h2>高质量金融数据<span>HIGH QUALITY FINANCIAL DATA</span></h2>
+                <p>免费、高质量的沪深A股历史、实时数据</p>
+            </div>
+            <div class="home_right r"><img src="/webapp/images/zy1.jpg" alt="量化平台" /></div>
+        </div>
+        <div class="home_cont r">
+            <div class="home_right"><img src="/webapp/images/zy2.jpg" alt="量化平台" /></div>
+            <div class="home_left r">
+                <h2>高效回测框架<span>EFFICIENT RETURN FRAME</span></h2>
+                <p>快速、易用的云端回测框架 强大的API接口，数十年免费数据 数百项指标，详尽的策略分析</p>
+            </div>
+        </div>
+        <div class="home_cont r">
+            <div class="home_left">
+                <h2>完全拥有，安全可靠<span>FULLY OWNED，SAFE AND RELIABLE</span></h2>
+                <p>知识产权属于您，采用docker技术隔离每个人都拥有独立的运行环境</p>
+            </div>
+            <div class="home_right r"><img src="/webapp/images/zy3.jpg" alt="量化平台" /></div>
+        </div>
+    </div>
+</div>
+
+<!--====================量化平台-footer====================-->
+<footer>
+	<div class="main">
+        <div class="foot_left">
+            <ul>
+                <li>
+                    <h2>关于</h2>
+                    <p><a href="">关于我们</a></p>
+                    <p><a href="">加入我们</a></p>
+                    <p><a href="">联系我们</a></p>
+                </li>
+                <li>
+                    <h2>API文档</h2>
+                    <p><a href="">策略研究文档</a></p>
+                    <p><a href="">Python</a></p>
+                    <p><a href="">API文档</a></p>
+                </li>
+                <li class="r">
+                    <h2>帮助</h2>
+                    <p><a href="">常见问题</a></p>
+                    <p><a href="">Python教程</a></p>
+                    <p><a href="">产品更新日志</a></p>                
+                    <p><a href="">新手指南</a></p>
+                </li>
+            </ul>
+        </div>
+        <div class="foot_right">
+        	<div class="ewm">
+            	<img src="/webapp/images/ewm.jpg" alt="二维码" width="94" height="94" />
+                <p>微信公众号</p>
+            </div>
+            <div class="ewm r">
+            	<img src="/webapp/images/ewm.jpg" alt="二维码" width="94" height="94" />
+                <p>淘股王APP</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="beian">@2016@淘股王版权所有 | 投资有风险，购买需谨慎</div>
+
+<!-- banner 开始 -->
+<script type="text/javascript" src="/webapp/js/banner.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('#demo01').flexslider({
+            animation: "fade",
+            direction:"vertical",
+            easing:"swing"
+        });
+    });
+</script>
+<!-- banner 结束-->
+</body>
+</html>

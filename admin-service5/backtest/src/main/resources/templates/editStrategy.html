@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>量化平台-创建策略-编辑策略</title>
+
+<!--量化平台-css样式表-->
+<link rel="stylesheet" type="text/css" href="/webapp/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="/webapp/css/laydate.css"/>
+<link rel="stylesheet" type="text/css" href="/webapp/css/stock.css" />
+<link rel="stylesheet" type="text/css" href="/webapp/css/style.css" />
+
+<!--量化平台-js引用表-->
+<script type="text/javascript" src='/webapp/js/vue.min.js'></script>
+<script type="text/javascript" src="/webapp/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="/webapp/js/stock/echarts.min.js"></script>
+<script type="text/javascript" src="/webapp/js/js.js"></script>
+<script type="text/javascript" src="/webapp/js/laydate.js"></script>
+<script type="text/javascript" src="/webapp/js/ace.js"></script>
+<script type="text/javascript" src="/webapp/js/ace/ace.js"></script>
+<script type="text/javascript" src='/webapp/js/json2.js'></script>
+<script type="text/javascript" src="/webapp/js/ace/ext-language_tools.js"></script>
+
+</head>
+
+<body  style="overflow: hidden;">
+
+<!--====================量化平台-header====================-->
+<header>
+	<div class="main">
+    	<div class="logo"><a href="index.html"><img src="/webapp/images/logo.png" alt="量化平台" width="120" height="50"/></a></div>
+        <div class="menu">
+            <nav>
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li class="hover"><a href="#">创建策略</a>
+                    	<div class="downMenu">
+                        	<div class="downMenu_box">                            
+                                <a href="createStrategy.html">策略生成器</a> 
+                                <a href="editStrategy.html">python策略</a> 
+                                <div class="triangle_border tb_background"></div> 
+                                <div class="triangle_border tb_border"></div> 
+                            </div>
+                        </div>
+                    </li>
+                    <li><a href="myStrategy.html">我的策略</a></li>
+                    <li><a href="document.html">文档</a></li>
+                </ul>
+            </nav>
+            <div class="header_right">
+                <ul>
+                    <li th:if="${session._http_login_pin_}"><a id = "logouturl" href="/webapp/logout.html">退出</a></li>
+                    <li th:unless="${session._http_login_pin_ != null}"><a id = "loginurl" href="/webapp/login" >登录</a></li>
+                    <!--<a href="register.html" class="r">免注册，快速登录</a>-->
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!--====================量化平台-myStrategy_content内容样式====================-->
+<div class="createStrategy_content">
+    <div class="createStrategy_top">
+		<a class="hover">编辑策略</a>
+        <a onclick="testStrategy.testHistory(2)" class="r">回测历史</a>
+        <div class="return">
+            <p>
+                <a href="myStrategy.html"></a>
+                <input type="text" maxlength="40" id="sname" th:value="${userStrategy.name}" />
+            </p>
+        </div>
+    </div>  
+   	<div class="editStrategy" id="edit_Strategy">
+    	<div class="editStrategy_left">
+    		<div class="editor_cont">
+                <input type="hidden" id="sid"  th:value="${userStrategy.id}" value="-1"/>
+                <input type="hidden" id="bid" th:value="${userStrategy.bid}" value="-1"/>
+                <input type="hidden" id="user" name="user" th:value="${session._http_login_pin_}"/>
+                <pre id="editor" class="ace_editor"th:text="${userStrategy.python}"><textarea class="ace_text-input"></textarea></pre>
+    		</div>
+    	</div>
+        <div class="editStrategy_right">
+            <div class="loading" style="display:none">
+                <span class="loadtext">运行中...</span>
+                <div class="progress loadprogress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                        0%
+                    </div>
+                </div>
+                <a class="button" id="stop">停止</a>
+            </div>
+            <div class="editStrategy_right_top">
+            	<span>
+                	<input id="test1" class="inline laydate-icon" style="width:110px;"> 
+                    至     
+                    <input id="test2" class="inline laydate-icon" style="width:110px;"> 
+                </span>
+                <span class="r">
+                    <a onclick="testStrategy.testResults()" >详细结果</a>
+                	<a onclick="testStrategy.getRun.run(2)" id="testRun">运行回测</a>
+                </span>
+            </div>
+            <div class="editStrategy_right_middle">
+            	<table>
+                	<thead>
+                    	<tr>
+                        	<th>收益</th>
+                        	<th>基准收益</th>
+                        	<th>最大撤回</th>
+                        	<th>beta</th>
+                        	<th>alpha</th>
+                        	<th>sharp</th>
+                        </tr>
+                    </thead>               
+                	<tbody>
+                    	<tr>
+                        	<td id="total_returns"></td>
+                            <td id="benchmark_total_returns"></td>
+                            <td id="max_withdraw"></td>
+                            <td id="beta"></td>
+                            <td id="alpha"></td>
+                            <td id="sharpe"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!--图表展示-->
+                <div id="data-chart" class="testResults_data-chart"></div>
+                
+            </div>
+            <div class="editStrategy_right_bottom">
+                <div class="editStrategylog">
+                    <a href="javascript:void(0);" class="focus">日志</a>
+                    <a href="javascript:void(0);">错误</a>
+                </div>
+                <div class="editStrategylog_cont" style="display:block;">
+                    <div class="logCont_p"></div>
+                    <div class="logCont">
+                        <p id="log"></p>
+                    </div>
+                    <div class="triangle_border tb_background"></div>
+                    <div class="triangle_border tb_border"></div>
+                </div>
+                <div class="editStrategylog_cont editStrategylog_cont1">
+                    <div class="logCont_p"></div>
+                    <div class="logCont">
+                        <p id="errorlog"></p>
+                    </div>
+                    <div class="triangle_border tb_background"></div>
+                    <div class="triangle_border tb_border"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/webapp/js/lab/chartHelper.js"></script>
+<script type="text/javascript" src="/webapp/js/lab/editStrategy.js"></script>
+
+<script>
+	//图表展示方法
+
+	//日历插件
+	laydate({
+	    elem: '#test1',
+	    format: 'YYYY-MM-DD',
+	    festival: true, 
+	});
+	laydate({
+	    elem: '#test2',
+	    format: 'YYYY-MM-DD',
+	    festival: true,
+	});
+
+</script>
+
+
+</body>
+</html>

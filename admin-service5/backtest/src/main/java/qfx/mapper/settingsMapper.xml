@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qfx.mapper.SettingsMapper">
+
+    <resultMap id="Settings" type="qfx.model.Settings">
+        <result column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="enable" property="enable" />
+        <result column="type" property="type" />
+    </resultMap>
+
+    <insert  id="addSettings">
+        INSERT INTO managementV2.Settings(enable,type,name)VALUES(#{enable},#{type},#{name})
+    </insert>
+
+    <delete id="deleteSettings" parameterType="int">
+        delete from  managementV2.Settings where  id=#{id}
+    </delete>
+
+
+    <update id="updateSettings">
+        update managementV2.Settings set name=#{name} where id=#{id}
+    </update>
+
+    <select id="selectSettings"  resultMap="Settings">
+        select * from managementV2.Settings  where  type=#{type}
+    </select>
+
+</mapper>

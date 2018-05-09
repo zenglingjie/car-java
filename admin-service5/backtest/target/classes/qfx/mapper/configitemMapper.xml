@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qfx.mapper.ConfigItemMapper">
+
+    <resultMap id="ConfigItem" type="qfx.model.ConfigItem">
+        <result column="id" property="id" />
+        <result column="enName" property="enName" />
+        <result column="cnName" property="cnName" />
+        <result column="defaultValueId" property="defaultValueId" />
+    </resultMap>
+    <insert  id="addConfigItem">
+        INSERT INTO managementV2.ConfigItem(enName,cnName,defaultValueId)VALUES(#{enName},#{cnName},#{defaultValueId})
+    </insert>
+
+    <delete id="deleteConfigItem" parameterType="int">
+        delete from  managementV2.ConfigItem where  id=#{id}
+    </delete>
+
+
+    <update id="updateConfigItem">
+        update managementV2.ConfigItem set enName=#{enName},cnName=#{cnName},defaultValueId=#{defaultValueId} where  id=#{id}
+    </update>
+
+    <select id="selectConfigItem"  resultMap="ConfigItem">
+        select * from managementV2.ConfigItem
+    </select>
+
+    <select id="selectId"  parameterType="String" resultType="Integer">
+        select id  from  managementV2.ConfigItem  where  cnName=#{name}
+    </select>
+</mapper>

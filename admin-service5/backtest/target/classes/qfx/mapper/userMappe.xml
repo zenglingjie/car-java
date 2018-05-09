@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qfx.mapper.UserMapper">
+    <resultMap id="User" type="qfx.model.User">
+        <result column="id" property="id"/>
+        <result column="email" property="email" />
+        <result column="cnName" property="cnName" />
+        <result column="password" property="password" />
+        <result column="privalige" property="privalige" />
+        <result column="pri" property="pri"/>
+        <result column="pasNumber" property="pasNumber" />
+        <result column="md5password" property="md5password" />
+    </resultMap>
+ <insert  id="addUser">
+   INSERT INTO managementV2.User(email,cnName,password,privalige,pri,pasNumber,md5password)VALUES(#{email},#{cnName},#{password},#{privalige},#{pri},#{pasNumber},#{md5password})
+ </insert>
+
+    <delete id="deleteUser" parameterType="int">
+        delete from  managementV2.User where  id=#{id}
+    </delete>
+
+
+    <update id="updateUser">
+       update managementV2.User set cnName=#{cnName},pri=#{pri},email=#{email},password=#{password},privalige=#{privalige},md5password=#{md5password},pasNumber=#{pasNumber} where id=#{id}
+    </update>
+
+    <select id="selectUser" resultType="User">
+        select * from managementV2.User
+     </select>
+
+    <select id="auditUser" resultMap="User">
+        select * from managementV2.User  where  pasNumber=1
+    </select>
+
+    <select id="selectpw" parameterType="String"  resultMap="User">
+        select * from  managementV2.User  where cnName=#{cnName}
+    </select>
+</mapper>

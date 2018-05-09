@@ -1,0 +1,81 @@
+server:
+  port: 8002
+
+spring:
+    /*dubbo:
+      application:
+        name: backtest
+      registry:
+        protocol: zookeeper
+        address: 172.18.44.122:2181
+      protocol:
+        name: dubbo
+        port: 20880
+        host: 172.18.42.77
+      scan: qfx.service*/
+    redis:
+        cluster:
+          nodes:
+            - 172.18.44.122:6381
+            - 172.18.44.122:6382
+            - 172.18.44.123:6381
+        pool:
+          maxWait: 1500
+          maxActive: 2048
+          minIdle: 20
+          maxIdle: 200
+    datasource:
+        url: jdbc:mysql://172.18.44.122:3306/managementV2?useUnicode=true&characterEncoding=utf8
+        username: testuser
+        password: test@tgw88
+    thymeleaf:
+        encoding: UTF-8
+        content-type: text/html
+        mode: LEGACYHTML5
+    mvc:
+        static-path-pattern: classpath:/static/
+    resources:
+        static-locations: classpath:/static/
+mybatis:
+    typeAliasesPackage: qfx.model
+    mapperLocations: classpath*:/qfx/mapper/*.xml
+
+jetcache:
+    statIntervalMinutes: 10
+    hiddenPackages: qfx
+    local:
+       default:
+          type: linkedhashmap
+          limit: 5000
+          defaultExpireInMillis: 3600000
+    remote:
+        default:
+            type: redis
+            poolConfig:
+                minIdle: 5
+                maxIdle: 50
+                maxTotal: 5000
+            host: 172.18.44.122
+            port: 6382
+            defaultExpireInMillis: 300000
+            keyConvertor: fastjson
+custumProp: #自定义的属性和值
+    loginUrl: http://172.17.14.71/webapi/myapp/WxInterface/Login?
+    #runCmd: e:/runpython.bat
+    isDev: false
+    runCmd: /backup/run.bat
+    arrayProp: 1,2
+    listProp:
+      - name: a
+        value: aValue
+      - name: b
+        value: bValue
+    mapProp:
+      key1: value1
+    mapCodeSave:
+        prefix: code
+        suffix: .py
+        saveCodeFilePath: /backup/codepy
+        saveFilesFlag: true
+        rqConfigPath: /config.yml
+        os: linux

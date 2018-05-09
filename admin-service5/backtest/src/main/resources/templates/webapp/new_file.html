@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript" src="js/jquery-min-1.7.js"></script>
+		<script>
+			 $(document).ready(function () { 
+   
+			    $(".bankmenu div").click(function(){
+			   //样式初始化   
+			   $(".bankmenu div").removeClass("active");//删除所有的   
+			   $(this).addClass("active");//添加 
+			   var index =$(".bankmenu div").index($(this)); //找到 你想要添加的面板的样式
+			   $(".ghbanktran .ghbktable").hide();
+			   var panel= $(".ghbanktran .ghbktable"); 
+			   $(panel[index]).show();   
+			  });
+			 
+			});
+		</script>
+		<div class="ghbanktran">
+        
+         <div class="bankmenu clearfix">
+            <div class="item active br">
+                <a class="first">转账汇款 </a>
+            </div>
+            <div class="item br">
+                <a>我的收款人</a>
+            </div>
+            <div class="item">
+                <a class="last">交易明细</a>
+            </div>
+        </div>
+ 
+ 
+           <!-- 第一个Div  -->
+        <div class="ghbktable" style="display: none;">
+            你好我是第一个div</div>
+        <!-- 第二个div   -->
+        <div class="ghbktable" style="display: none;">
+             你好我是第二个div</div>
+              <!-- 第三个Div  -->
+        <div class="ghbktable" style="display: none;">
+             你好我是第三个div</div>
+ 
+</div>
+		
+	</body>
+</html>

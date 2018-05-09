@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qfx.mapper.FactorTypeMapper">
+
+    <resultMap id="FactorType" type="qfx.model.FactorType">
+        <result column="id" property="id" />
+        <result column="typeId" property="typeId" />
+        <result column="enName" property="enName" />
+        <result column="cnName" property="cnName" />
+    </resultMap>
+    <insert  id="addFactorType">
+        INSERT INTO managementV2.FactorType(typeId,enName,cnName)VALUES(#{typeId},#{enName},#{cnName})
+    </insert>
+
+    <delete id="deleteFactorType" parameterType="int">
+        delete from  managementV2.FactorType where  id=#{id}
+    </delete>
+
+
+    <update id="updateFactorType">
+        update managementV2.FactorType set typeId=#{typeId},cnName=#{cnName},enName=#{enName}  where id=#{id}
+    </update>
+
+    <select id="selectFactorType"  resultMap="FactorType">
+        select * from managementV2.FactorType
+    </select>
+
+    <select id="selectId"  parameterType="String"  resultType="Integer">
+      select typeId  from  managementV2.FactorType  where  cnName=#{cnName}
+    </select>
+
+
+    <select id="selectName" resultMap="FactorType">
+        select  cnName from  managementV2.FactorType
+    </select>
+
+    <select id="selectOne" resultMap="FactorType">
+        select cnName from  managementV2.FactorType  where  typeId=#{typeId}
+    </select>
+
+   <select id="selectFatype" resultMap="FactorType">
+        select typeId   from   managementV2.FactorType  where  cnName=#{cnName}
+    </select>
+</mapper>
